@@ -34,7 +34,7 @@ import Dataset from "@antv/data-set";
 import _static from "~/script/static.js";
 import { Chart, registerShape, Util } from "@antv/g2"; //或者只引入需要用到的G2组件，我要用Chart
 export default {
-  name: "index",
+  vNname: "index",
   data: () => ({
     columnData: [],
     loading: true,

@@ -1,4 +1,7 @@
 import Vue from "vue";
+import hint from '~/components/hint/index.js';
+import toast from '~/components/toast/index.js';
+import loading from '~/components/loading/index.js'
 let obj = {
   checkObjectIsEmpty: function(obj) {
     for (let i in obj) {
@@ -54,5 +57,9 @@ let obj = {
     localStorage.setItem(name, obj);
   }
 };
-
+export default obj;
+Vue.prototype.$hint = hint;
+Vue.prototype.$toast = toast;
+Vue.prototype.$loading = loading;
+Vue.prototype.$bus = new Vue();
 Vue.prototype.$u = obj;

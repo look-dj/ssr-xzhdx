@@ -9,14 +9,17 @@
 import Upload from "~/components/Upload.vue";
 import Editor from "~/components/Editor.vue";
 export default {
-  name: "introduce",
+  vName: "introduce",
   data: () => ({
     file: {},
     data: "",
   }),
   methods: {
-    test() {
-      this.$loading();
+    async test() {
+      let that = this;
+      console.log(that.file);
+      let res = await that.api.upload(that.file, that);
+      console.log(res);
     },
   },
   watch: {

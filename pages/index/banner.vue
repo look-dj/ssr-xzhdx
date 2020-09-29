@@ -87,7 +87,7 @@
 <script>
 import Upload from "~/components/Upload.vue";
 export default {
-  name: "banner",
+  vName: "banner",
   data: () => ({
     headers: [
       { text: "ID", value: "id" },

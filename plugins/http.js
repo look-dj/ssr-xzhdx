@@ -1,4 +1,5 @@
 import Vue from "vue";
+import util from './util.js'
 let temp = {
   $loading: () => ({
     close: () => {}
@@ -34,8 +35,8 @@ class Request {
     return this.fetch("/panel/site/update", data, obj);
   }
   //查询所有的html
-  getTps(data, obj = {}) {
-    return this.fetch("/panel/file/getTps", data, obj);
+  getHtmlList(data, obj = {}) {
+    return this.fetch("/panel/file/getHtmlList", data, obj);
   }
   fetchRouter(data, obj = {}) {
     // console.log(data);
@@ -59,8 +60,9 @@ class Request {
     fm.append("file", data);
     try {
       that.axios.setHeader("Content-Type", "multipart/form-data");
-      let result = that.axios.put("/file/upload/serve", fm, obj);
-      if (result.code === 200) {
+      let result = await that.axios.put("/file/upload/serve", fm);
+      console.log(result)
+      if (result.data.code == 200) {
         if (deletePath.length > 0) {
           try {
             let result0 = await that.deleteFile({
@@ -74,7 +76,7 @@ class Request {
             console.error(e, "删除" + deletePath + "失败");
           }
         }
-        return result;
+        return result.data;
       } else {
         console.error("上传图片失败");
         return false;
@@ -126,8 +128,8 @@ class Request {
       header: "application/json;charset=UTF-8"
     }
   ) {
-    // if (checkObjectIsEmpty(obj)) obj = temp;
-    let o = temp.$loading();
+    if (util.checkObjectIsEmpty(obj)) obj = temp;
+    let o = obj.$loading();
     this.axios.setHeader(head.name, head.header);
     let token = localStorage.getItem("token");
     let inWhiteList = s => whiteList.some(w => w === s);

@@ -198,12 +198,21 @@ export default {
         }, 500);
       });
     },
-    getMenu() {
+    async getMenu() {
       let that = this;
-      let _routes = that.$router.options.routes.filter((r) => r.path === "/");
-      _routes = _routes[0];
-      console.log(_routes);
+      try{
+        let result = await that.api.fetchMenu({auth: 'user'});
+        let menu = result.data;
+        that.dispose(menu);
+      }catch(e){
+        console.log(e);
+        that.$hint({ msg: "获取菜单失败", type: "error" });
+        throw new Error("获取菜单失败");
+      }
     },
+    dispose(menu){
+      
+    }
   },
 
   computed: {

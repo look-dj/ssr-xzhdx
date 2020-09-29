@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  name: "other",
+  vName: "other",
   data: () => ({}),
 };
 </script>
