@@ -91,7 +91,7 @@
 <script>
 // 项目介绍
 export default {
-  name: "tpConfig",
+  vName: "tpConfig",
   data: () => ({
     headers: [
       { text: "ID", value: "id", align: "center" },

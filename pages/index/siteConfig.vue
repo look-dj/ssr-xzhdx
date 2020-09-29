@@ -48,7 +48,7 @@
 import Upload from "~/components/Upload.vue";
 // 站点配置
 export default {
-  name: "config",
+  vName: "siteConfig",
   data: () => ({
     siteModel: {},
     imgFile: {},
