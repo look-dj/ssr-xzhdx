@@ -1,10 +1,10 @@
 <template>
   <v-container fluid class="px-12">
-    <!-- <v-subheader>关于雪中</v-subheader> -->
-    <v-subheader v-if="sonColumn.length>0">
+    <v-subheader>关于雪中</v-subheader>
+    <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
       <v-btn small class="mx-2" text v-for="(item,idx) in sonColumn" :key="idx">{{item.name}}</v-btn>
-    </v-subheader>
+    </v-subheader> -->
     <v-card flat color="transparent">
       <v-card-text>
         <v-row>

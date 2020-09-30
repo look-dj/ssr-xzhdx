@@ -1,10 +1,10 @@
 <template>
   <v-container fluid class="px-12 v-container">
     <v-subheader>角色管理</v-subheader>
-    <v-subheader v-if="sonColumn.length>0">
+    <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
       <v-btn small class="mx-2" text v-for="(item,idx) in sonColumn" :key="idx">{{item.name}}</v-btn>
-    </v-subheader>
+    </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
         <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]" class="mr-2">+添加新角色</v-btn>
@@ -119,13 +119,12 @@ export default {
     },
     imgFile: {},
     sonColumn: [],
-    crud: new crud("role"),
   }),
   async mounted() {
     let that = this;
     that.roleModel.nid = that.$route.query.nid;
     that.roleQueryAll();
-    that.sonColumn = that.getSonColumn(that.roleModel.nid);
+    // that.sonColumn = that.getSonColumn(that.roleModel.nid);
   },
   methods: {
     roleModelReset(type = null) {

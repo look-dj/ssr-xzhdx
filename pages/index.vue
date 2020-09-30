@@ -5,51 +5,76 @@
       :mini-variant.sync="menuState"
       v-model="drawer"
       class="drawer"
-      :color="$vuetify.theme.dark?'#121212':'#f3f2f1'"
+      :color="$vuetify.theme.dark ? '#121212' : '#f3f2f1'"
     >
-      <v-sheet height="60" width="100%" :color="$vuetify.theme.dark?'#1E1E1E':'#f3f2f1'">
+      <v-sheet
+        height="60"
+        width="100%"
+        :color="$vuetify.theme.dark ? '#1E1E1E' : '#f3f2f1'"
+        @click="goToIndex"
+        style="cursor: pointer;"
+        title="首页"
+      >
         <img src="/logo.png" v-if="!menuState" class="logo" />
-        <v-subheader class="justify-center text-uppercase" width="100%" v-if="menuState">雪中</v-subheader>
+        <v-subheader
+          class="justify-center text-uppercase"
+          width="100%"
+          v-if="menuState"
+          >雪中</v-subheader
+        >
       </v-sheet>
       <v-list class="pt-0">
         <v-list-group
-          v-for="(item,idx) in menu"
+          v-for="(item, idx) in menu"
           :key="idx"
           no-action
-          :append-icon="item.children?'iconfont-expand_more':''"
+          :append-icon="item.children ? 'iconfont-expand_more' : ''"
           @click="replace(item)"
-          :class="mid==item.id?'my-v-list-group-append-icon':''"
+          :class="mid == item.id ? 'my-v-list-group-append-icon' : ''"
           class="my-v-list-group"
         >
           <template v-slot:activator>
             <v-list-item-icon class="my-list-item-group-icon">
-              <v-icon :class="item.icon" :style="mid==item.id?theme.co:''"></v-icon>
+              <v-icon
+                :class="item.icon"
+                :style="mid == item.id ? theme.co : ''"
+              ></v-icon>
             </v-list-item-icon>
             <v-list-item-content class="my-v-list-group-content">
-              <v-list-item-title :style="mid==item.id?theme.co:''">{{item.title}}</v-list-item-title>
+              <v-list-item-title :style="mid == item.id ? theme.co : ''">{{
+                item.call
+              }}</v-list-item-title>
             </v-list-item-content>
             <div
               class="my-v-list-group-box"
-              :style="`backgroundColor:${mid==item.id?theme.bg_p.background:''};`"
+              :style="`backgroundColor:${
+                mid == item.id ? theme.bg_p.background : ''
+              };`"
             ></div>
           </template>
           <v-list-item
-            v-for="(n,i) in item.children"
+            v-for="(n, i) in item.children"
             :key="i"
             @click="replace(n)"
             class="pl-10"
-            :data-theme="$vuetify.theme.isDark?'#555':theme.bg_a.background"
+            :data-theme="$vuetify.theme.isDark ? '#555' : theme.bg_a.background"
             v-hover
           >
             <div
               class="list_item_box"
-              :style="`backgroundColor:${mid==n.id?theme.bg_p.background:''};color:#fff;`"
+              :style="`backgroundColor:${
+                mid == n.id ? theme.bg_p.background : ''
+              };color:#fff;`"
             ></div>
             <!-- <v-list-item-icon>
               <v-icon>{{n.icon}}</v-icon>
             </v-list-item-icon>-->
             <v-list-item-content class="my-v-list-item-content">
-              <v-list-item-title class="text-left pl-12" :style="mid==n.id?theme.co:''">{{n.call}}</v-list-item-title>
+              <v-list-item-title
+                class="text-left pl-12"
+                :style="mid == n.id ? theme.co : ''"
+                >{{ n.call }}</v-list-item-title
+              >
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
@@ -57,18 +82,33 @@
     </v-navigation-drawer>
 
     <v-app-bar app dense text :style="theme.bg_p">
-      <v-btn depressed @click="commDrawer();" :style="[theme.bg_p,theme.co]">
+      <v-btn depressed @click="commDrawer()" :style="[theme.bg_p, theme.co]">
         <v-icon>iconfont-goodsppecategory</v-icon>
       </v-btn>
-      <v-btn text class="ml-3" :style="[theme.bg_p,theme.co]">浏览首页</v-btn>
+      <v-btn text class="ml-3" :style="[theme.bg_p, theme.co]">浏览首页</v-btn>
       <v-spacer></v-spacer>
-      <v-btn depressed title="退出" @click="logout" :style="[theme.bg_p,theme.co]">
+      <v-btn
+        depressed
+        title="退出"
+        @click="logout"
+        :style="[theme.bg_p, theme.co]"
+      >
         <v-icon>iconfont-zhuxiao</v-icon>
       </v-btn>
-      <v-btn depressed title="设置" @click="showSide('setting')" :style="[theme.bg_p,theme.co]">
+      <v-btn
+        depressed
+        title="设置"
+        @click="showSide('setting')"
+        :style="[theme.bg_p, theme.co]"
+      >
         <v-icon>iconfont-shezhi</v-icon>
       </v-btn>
-      <v-btn depressed title="我的信息" @click="showSide('user')" :style="[theme.bg_p,theme.co]">
+      <v-btn
+        depressed
+        title="我的信息"
+        @click="showSide('user')"
+        :style="[theme.bg_p, theme.co]"
+      >
         <v-icon>iconfont-yonghuming</v-icon>
       </v-btn>
     </v-app-bar>
@@ -101,18 +141,7 @@ export default {
     viewCols: 12,
     viewKey: 0,
     listModel: 0,
-    menu: [
-      {
-        icon: "mdi-apps",
-        title: "Welcome",
-        to: "/",
-      },
-      {
-        icon: "mdi-chart-bubble",
-        title: "Inspire",
-        to: "/inspire",
-      },
-    ],
+    menu: [],
   }),
   mounted() {
     let that = this;
@@ -125,9 +154,18 @@ export default {
     drawer_content.classList.add("drawer"); //chrome
     drawer_content.style.scrollbarWidth = "none"; //firefox
     drawer_content.style.msOverflowStyle = "none"; //edge
-    that.getMenu();
+    let _menu = that.$u.getItemObj("menu");
+    if (_menu) {
+      that.menu = _menu;
+    } else {
+      that.getMenu();
+    }
   },
   methods: {
+    goToIndex(){
+      let that = this;
+      that.$router.push('/');
+    },
     commDrawer() {
       let that = this;
       //挡在md以上的时候that.menuState一直为true
@@ -141,28 +179,19 @@ export default {
     },
     replace(data) {
       let that = this;
-      try {
-        // require(`@/pages/view/${data.component}`).default;
-        // console.log(data);
-        that.$store.commit("setMid", data.id);
-        that.viewKey++;
-        that.$router.push({
-          path: data.v_path,
-          query: { nid: data.id },
-        });
-      } catch (e) {
-        console.log(e);
-        that.$hint({
-          msg: "组件路径不正确，请前往节点设置修改",
-          type: "error",
-        });
-      }
+      console.log(data);
+      that.viewKey++;
+      that.$router.push({
+        path: data.path,
+        query: { nid: data.id },
+      });
     },
     closeSide() {
       let that = this;
       that.$nextTick(() => {
         that.sideCols = 0;
         that.viewCols = 12;
+        that.sideType = "";
         let lastHerf = window.location.href.charAt(
           window.location.href.length - 1
         );
@@ -200,19 +229,21 @@ export default {
     },
     async getMenu() {
       let that = this;
-      try{
-        let result = await that.api.fetchMenu({auth: 'user'});
-        let menu = result.data;
-        that.dispose(menu);
-      }catch(e){
+      try {
+        let result = await that.api.fetchMenu({ auth: "admin" });
+        if (result.code == 200) {
+          that.menu = result.data;
+          that.$u.saveItemObj("menu", result.data);
+          console.log(result);
+          return;
+        }
+        that.$hint({ msg: "获取菜单失败", type: "error" });
+      } catch (e) {
         console.log(e);
         that.$hint({ msg: "获取菜单失败", type: "error" });
         throw new Error("获取菜单失败");
       }
     },
-    dispose(menu){
-      
-    }
   },
 
   computed: {

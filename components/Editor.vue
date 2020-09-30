@@ -1,12 +1,7 @@
 <template>
-  <!-- <ck-editor v-model="edVal" :editor="ed" :config="editorConfig"></ck-editor> -->
-  <h1>welcole</h1>
+  <ck-editor v-model="edVal" :editor="ed" :config="editorConfig" v-if="isClient"></ck-editor>
 </template>
 <script>
-// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-// import { component as CkeditorComponent } from "@ckeditor/ckeditor5-vue";
-// import "@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js";
-// import * as api from "@api";
 export default {
   name: "editor",
   model: {
@@ -14,12 +9,12 @@ export default {
     event: "ed_input",
   },
   data: () => ({
-    // ed: ClassicEditor,
     edVal: "",
     editorConfig: {
       placeholder: "请输入内容。。。",
       language: "zh-cn",
     },
+    isClient: false
   }),
   watch: {
     edVal(val, old) {
@@ -44,15 +39,26 @@ export default {
   methods: {},
   mounted() {
     let that = this;
+    if (process.browser) {
+      const ClassicEditor =  require("@ckeditor/ckeditor5-build-classic");
+      const { component } = require("@ckeditor/ckeditor5-vue")
+      require("@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js");
+      that.$options.components = {ckEditor: component}
+      that.ed = ClassicEditor;
+      that.isClient = true;
+    }
   },
-  components: {},
   created() {
     let that = this;
     that.edVal = that.value;
   },
 };
 </script>
+<<<<<<< HEAD
 <style lang="scss" >
+=======
+<style lang="scss">
+>>>>>>> efe72cf... 修改菜单栏的问题
 .ck-editor__editable {
   min-height: 200px;
 }

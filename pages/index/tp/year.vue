@@ -1,10 +1,10 @@
 <template>
   <v-container fiuld class="px-12">
-    <!-- <v-subheader>时间线</v-subheader> -->
-    <v-subheader>
+    <v-subheader>时间线</v-subheader>
+    <!-- <v-subheader>
       <span>子栏目:</span>
       <v-btn small class="mx-2" text v-for="(item,idx) in sonColumn" :key="idx">{{item.name}}</v-btn>
-    </v-subheader>
+    </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
         <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]">+添加新时间线</v-btn>
@@ -100,13 +100,12 @@ export default {
     imgFile: {},
     dialogType: "add",
     sonColumn: [],
-    crud: new crud("year"),
   }),
   async mounted() {
     let that = this;
     that.yearQueryAll();
     that.yearModel.nid = that.$route.query.nid;
-    that.sonColumn = that.getSonColumn(that.yearModel.nid);
+    // that.sonColumn = that.getSonColumn(that.yearModel.nid);
   },
   methods: {
     yearModelReset(type = null) {
@@ -127,7 +126,7 @@ export default {
       try {
         //,
         let result = await that.crud.queryAll(
-          { where: { nid: that.columnData.cid }, offset: 0 },
+          { where: { nid: that.yearModel.nid }, offset: 0 },
           that
         );
         that.items = result.code === 200 ? result.data : [];

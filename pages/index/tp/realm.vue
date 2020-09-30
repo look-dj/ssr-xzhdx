@@ -1,10 +1,10 @@
 <template>
   <v-container fluid class="px-12">
-    <!-- <v-subheader>境界介绍</v-subheader> -->
-    <v-subheader v-if="sonColumn.length>0">
+    <v-subheader>境界介绍</v-subheader>
+    <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
       <v-btn small class="mx-2" text v-for="(item,idx) in sonColumn" :key="idx">{{item.name}}</v-btn>
-    </v-subheader>
+    </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
         <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]">+添加新境界</v-btn>
@@ -98,8 +98,8 @@ export default {
     let that = this;
     that.realmModel.nid = that.$route.query.nid;
     that.realmQueryAll();
-    that.sonColumn = that.getSonColumn(that.realmModel.nid);
-    console.log(that.sonColumn);
+    // that.sonColumn = that.getSonColumn(that.realmModel.nid);
+    // console.log(that.sonColumn);
   },
   methods: {
     realmModelReset(type = null) {

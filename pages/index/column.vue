@@ -20,9 +20,9 @@
         hide-default-footer
       >
         <!-- 名称 -->
-        <template v-slot:item.name="{ item }">
-          <!-- <span>{{ item.origin !== nid ? item.name : '|—' + item.name }}</span> -->
-        </template>
+        <!-- <template v-slot:item.name="{ item }">
+          <span>{{ item.origin !== nid ? item.name : '|—' + item.name }}</span>
+        </template> -->
         <!-- 是否显示 -->
         <template v-slot:item.show="{ item }">
           <span>{{ item.show ? "显示" : "隐藏" }}</span>
@@ -255,7 +255,7 @@ export default {
       let temp = key.split("/");
       temp = temp[temp.length - 1];
       fileList.push({
-        path: "/" + temp.split(".")[0],
+        path: "/tp/" + temp.split(".")[0],
         name: temp,
       });
     });
@@ -419,7 +419,11 @@ export default {
         icon: "",
         cid: this.columnNodeList[0].self,
       };
-      if (type) that.getColumnList();
+      
+      if (type) {
+        localStorage.removeItem('menu');
+        that.getColumnList();
+      }
     },
   },
   computed: {
@@ -452,7 +456,7 @@ export default {
       that.columns.forEach((i) => {
         nodeList.push(i);
       });
-      nodeList.unshift({ name: "顶级栏目", cid: "2", deep: "1", nid: "2" });
+      nodeList.unshift({ name: "顶级栏目", cid: "1", deep: "1", nid: "2" });
       nodeList.forEach((i) => {
         i.self = JSON.stringify(i);
       });
