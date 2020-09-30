@@ -56,11 +56,7 @@ export default {
   },
 };
 </script>
-<<<<<<< HEAD
 <style lang="scss" >
-=======
-<style lang="scss">
->>>>>>> efe72cf... 修改菜单栏的问题
 .ck-editor__editable {
   min-height: 200px;
 }
