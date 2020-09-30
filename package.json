@@ -2,9 +2,9 @@
   "name": "xzhdx",
   "version": "1.0.0",
   "description": "根据小说《雪中悍刀行》创建的网站",
-  "author": "lucifer-dj <look-dj@outlook.com>",
+  "author": "look-dj <look-dj@outlook.com>",
   "scripts": {
-    "dev": "cross-env BASE_URL=http://127.0.0.1:7001 NODE_ENV=development nuxt",
+    "dev": "cross-env NODE_ENV=development nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
