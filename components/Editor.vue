@@ -2,6 +2,7 @@
   <ck-editor v-model="edVal" :editor="ed" :config="editorConfig" v-if="isClient"></ck-editor>
 </template>
 <script>
+//富文本编辑器组件
 export default {
   name: "editor",
   model: {
@@ -40,6 +41,7 @@ export default {
   mounted() {
     let that = this;
     if (process.browser) {
+      //需要在客户端渲染的
       const ClassicEditor =  require("@ckeditor/ckeditor5-build-classic");
       const { component } = require("@ckeditor/ckeditor5-vue")
       require("@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js");
