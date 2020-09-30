@@ -50,16 +50,9 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [{
-      src: "~/plugins/vuelidate",
-      ssr: true
-    },
+  plugins: [
     {
       src: "~/plugins/util",
-      ssr: true
-    },
-    {
-      src: "~/plugins/md5",
       ssr: true
     },
     {
@@ -125,7 +118,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {
-    vendor: ["vuelidate"]
+    vendor: ["vuelidate", "js-md5"]
   },
   env: {
     BASE_URL: process.env.BASE_URL,

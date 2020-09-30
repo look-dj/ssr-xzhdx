@@ -7,7 +7,7 @@
         <v-btn text :style="[theme.bg_p,theme.co]">更新</v-btn>
       </v-toolbar>
       <v-data-table align="center" :headers="headers" disable-sort :items="items">
-        <!-- <template v-slot:item.cid="{item}">{{columnByCid[item.cid].name}}</template> -->
+        <template v-slot:item.cid="{item}">{{columnObj[item.cid]}}</template>
         <template v-slot:item.oper="{item}">
           <v-btn
             fab
@@ -108,6 +108,7 @@ export default {
     },
     columns: [],
     imgFile: {},
+    columnObj: {}
   }),
   async mounted() {
     let that = this;
@@ -228,6 +229,12 @@ export default {
       try {
         let result = await that.columnCrud.queryAll();
         that.columns = result.code === 200 ? result.data : [];
+        let temp = {};
+        that.columns.forEach(c => {
+          temp[c.id] = c.name;
+        });
+        that.columnObj = temp;
+        console.log(temp);
       } catch (e) {
         console.error(e);
         that.$hint({ msg: "获取所以模板失败", type: "error" });

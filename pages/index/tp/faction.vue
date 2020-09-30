@@ -1,10 +1,10 @@
 <template>
   <v-container fluid class="px-12">
     <v-subheader>势力划分</v-subheader>
-    <v-subheader v-if="sonColumn.length>0">
+    <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
       <v-btn small class="mx-2" text v-for="(item,idx) in sonColumn" :key="idx">{{item.name}}</v-btn>
-    </v-subheader>
+    </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
         <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]">+添加新势力</v-btn>
@@ -107,13 +107,12 @@ export default {
     imgFile: {},
     dialogType: "add",
     sonColumn: [],
-    api: new Api("faction"),
   }),
   async mounted() {
     let that = this;
     that.factionModel.nid = that.$route.query.nid;
     that.factionQueryAll();
-    that.sonColumn = that.getSonColumn(that.factionModel.nid);
+    // that.sonColumn = that.getSonColumn(that.factionModel.nid);
   },
   methods: {
     factionModelReset(type = null) {
@@ -132,7 +131,7 @@ export default {
     async factionQueryAll() {
       let that = this;
       try {
-        let result = await that.api.queryAll(
+        let result = await that.crud.queryAll(
           { where: { nid: that.factionModel.nid }, offset: 0 },
           that
         );
@@ -151,7 +150,7 @@ export default {
         that.factionModel.start = new Date().valueOf();
         that.factionModel.pic = result0 ? result0 : "";
         if (!result0) return that.$hint({ msg: "上传图片失败", type: "error" });
-        let result = await that.api.add(that.factionModel, that);
+        let result = await that.crud.add(that.factionModel, that);
         that.$hint({ msg: result.msg });
         that.factionModelReset();
       } catch (e) {
@@ -171,7 +170,7 @@ export default {
       }
       that.factionModel.update = new Date().valueOf();
       try {
-        let result = await that.api.update(that.factionModel, that);
+        let result = await that.crud.update(that.factionModel, that);
         that.factionModelReset();
         that.$hint({ msg: "更新成功" });
       } catch (e) {
@@ -181,7 +180,7 @@ export default {
     async factionRead(id) {
       let that = this;
       try {
-        let result = await that.api.read({ id }, that);
+        let result = await that.crud.read({ id }, that);
         return result.data;
       } catch (e) {
         console.log(e);
@@ -203,7 +202,7 @@ export default {
           let result0 = await that.api.deleteFile({ path: result.pic });
         }
         try {
-          let result1 = await that.api.delete({ id }, that);
+          let result1 = await that.crud.delete({ id }, that);
           that.$hint({ msg: "删除成功" });
           that.factionQueryAll();
         } catch (e) {
