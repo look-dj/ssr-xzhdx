@@ -120,10 +120,9 @@ export default {
         if (result.code === 200) {
           console.log(result);
           localStorage.setItem("token", result.data.token);
-          that.$u.saveItemObj("user", result.data);
           that.userModelReset();
           that.$hint({ msg: result.msg });
-          that.$router.replace("/");
+          that.$router.push("/");
           // setTimeout(() => {
           //   that.$router.replace("/");
           // }, 500);

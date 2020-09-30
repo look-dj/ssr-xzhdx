@@ -57,7 +57,23 @@ let obj = {
   saveItemObj: function(name, obj) {
     obj = JSON.stringify(obj);
     localStorage.setItem(name, obj);
-  }
+  },
+  getParamsByHerf(herf) {
+    let src = herf.split("?")[1];
+    let srcArr = src.split("&");
+    let obj = {};
+    if (srcArr.length == 1) {
+      temp = srcArr[0].split("=");
+      obj[temp[0]] = temp[1];
+      return obj;
+    }
+    let temp = "";
+    for (let i = 0; i < srcArr.length; i++) {
+      temp = srcArr[i].split("=");
+      obj[temp[0]] = temp[1];
+    }
+    return obj;
+  },
 };
 export default obj;
 Vue.prototype.$hint = hint;

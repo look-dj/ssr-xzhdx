@@ -12,7 +12,7 @@
         width="100%"
         :color="$vuetify.theme.dark ? '#1E1E1E' : '#f3f2f1'"
         @click="goToIndex"
-        style="cursor: pointer;"
+        class="logo_place"
         title="首页"
       >
         <img src="/logo.png" v-if="!menuState" class="logo" />
@@ -142,7 +142,13 @@ export default {
     viewKey: 0,
     listModel: 0,
     menu: [],
+    documentTitle: '雪中控制台'
   }),
+  head(){
+    return {
+      title: this.documentTitle
+    }
+  },
   mounted() {
     let that = this;
     //人物 势力 关于雪中
@@ -162,9 +168,9 @@ export default {
     }
   },
   methods: {
-    goToIndex(){
+    goToIndex() {
       let that = this;
-      that.$router.push('/');
+      that.$router.push("/");
     },
     commDrawer() {
       let that = this;
@@ -179,8 +185,10 @@ export default {
     },
     replace(data) {
       let that = this;
-      console.log(data);
+      // console.log(data);
       that.viewKey++;
+      that.$store.commit("setMid", data.id);
+      that.documentTitle = data.title
       that.$router.push({
         path: data.path,
         query: { nid: data.id },
@@ -229,11 +237,11 @@ export default {
     },
     async getMenu() {
       let that = this;
-      let user = that.$u.getItemObj('user');
-      if(!user){
+      let user = that.$store.state.user;
+      if (!user) {
         localStorage.clear();
         that.$hint({ msg: "请前往登录", type: "error" });
-        that.$router.replace('/login');
+        that.$router.replace("/login");
       }
       try {
         let result = await that.api.fetchMenu({ auth: user.auth });
@@ -282,6 +290,17 @@ export default {
 };
 </script>
 <style lang="scss">
+.logo_place {
+  cursor: pointer;
+  &>img{
+    transition: all 0.3s;
+  }
+  &:hover {
+    & > img {
+      transform: scale(1.1, 1.1);
+    }
+  }
+}
 .my-v-list-group-append-icon {
   position: relative;
   & .v-list-group__header__append-icon {

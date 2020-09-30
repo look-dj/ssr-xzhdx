@@ -16,5 +16,8 @@ export default {
   },
   setMid(state, mid) {
     state.mid = mid;
+  },
+  setUser(state, user){
+    state.user = user;
   }
 };

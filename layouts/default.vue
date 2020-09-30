@@ -20,12 +20,16 @@ export default {
   }),
   created() {
     Vue.prototype.api = new this.Request(this.$axios);
-    // this.getInfo();
+  },
+  asyncData({redirect}){
+    return redirect('/404')
   },
   async mounted() {
     // this.$vue._theme.primary = "#222";
     //做一个进入时的验证
     let that = this;
+    that.getInfo();
+    //修改主题
     let default_theme = that.$u.getItemForStorage("theme")
       ? that.$u.getItemForStorage("theme")
       : "light";
@@ -37,8 +41,11 @@ export default {
       });
       that.$vuetify.theme.dark = true;
     } else that.$store.commit("changeTheme", default_theme);
-    // let temp_loading = document.querySelector("#temp_loading");
-    // temp_loading.style.display = "none";
+    // 拿到window窗口地址
+    let _herf = window.location.href;
+    _herf = that.$u.getParamsByHerf(_herf);
+    that.$store.commit('setMid', _herf.nid);
+    // TODO 后期在处理路由nid加密的时候需要在这里经行解密
   },
   watch: {
     $route(to, from) {
@@ -61,23 +68,14 @@ export default {
     async getInfo() {
       let that = this;
       let token = that.$u.getItemForStorage("token");
-      if (!token) return;
+      if (!token) {
+        localStorage.clear();
+        that.$router.push("/login");
+        return;
+      }
       try {
-        let result = await getUserInfo({ token });
-        if (result.code === 200) {
-          that.$u.saveItemObj("user", result.data);
-          if (!that.$u.getItemObj("router")) {
-            let _res = await fetchRouter({ auth: result.data.auth });
-            if (_res.code === 200) {
-              that.$u.saveItemObj("router", _res.data);
-            }
-          }
-          that.$router.replace("/");
-          that.$hint({ msg: "自动登录成功" });
-        } else {
-          that.$hint({ msg: "tokan验证失败", type: "error" });
-          that.$router.replace("/login");
-        }
+        let result = await that.api.getUserByToken();
+        that.$store.commit("setUser", result.data);
       } catch (e) {
         console.log(e);
         that.$hint({ msg: "错误->" + e, type: "error" });

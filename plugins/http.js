@@ -54,6 +54,9 @@ class Request {
   readPageByNid(data, obj = {}) {
     return this.fetch("/panel/page/byNid", data, obj);
   }
+  getUserByToken(data = {}, obj = {}) {
+    return this.fetch("/panel/getUserByToken", data, obj, "get");
+  }
   async upload(data, obj = {}, deletePath = "") {
     let that = this;
     let fm = new FormData();

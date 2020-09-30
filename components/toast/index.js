@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import toastComponent from './toast.vue'
+import toastComponent from './myToast.vue'
 let ToastConstructor = Vue.extend(toastComponent)
 let t = undefined
 ToastConstructor.prototype.close = function () {

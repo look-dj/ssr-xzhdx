@@ -9,7 +9,8 @@ const createStore = () => {
       theme: {},
       routes: [],
       menu: [],
-      mid: ""
+      mid: 1,
+      user: {}
     },
     mutations,
     getters,

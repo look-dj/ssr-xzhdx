@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="side_box">
     <v-card
       v-if="type=='setting'"
       flat
@@ -122,7 +122,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.box {
+.side_box {
   position: absolute;
   width: 100%;
   top: 0;
