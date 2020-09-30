@@ -49,7 +49,7 @@
           <v-card class="d-flex">
             <v-card-title>
               <v-avatar>
-                <v-img src="../assets/images/avater.png"></v-img>
+                <v-img src="/avater.png"></v-img>
               </v-avatar>
             </v-card-title>
             <v-card-text class="d-flex justify-center flex-column pa-0">

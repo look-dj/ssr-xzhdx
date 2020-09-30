@@ -134,7 +134,7 @@ class Request {
     let token = localStorage.getItem("token");
     let inWhiteList = s => whiteList.some(w => w === s);
     if (!inWhiteList(url)) {
-      this.axios.setHeader("Authorization", token);
+      this.axios.setHeader("Authorization", "auth "+token);
     }
     return new Promise((resolve, reject) => {
       this.axios["$" + method](url, data).then(

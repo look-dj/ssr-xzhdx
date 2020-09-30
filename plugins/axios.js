@@ -27,6 +27,16 @@ export default function({ $axios, redirect, store }) {
   });
 
   $axios.onResponse(response => {
+    //检查相应的数据里面有token没有
+    let token = response.data.token;
+    if(token){ 
+      localStorage.setItem("token", token);
+    }
+    let code = response.data.code;
+    if(code>350){
+      redirect("/400");
+    }
+    delete response.data.token;
     return response;
   });
 

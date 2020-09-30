@@ -217,7 +217,7 @@ export default {
     logout() {
       let that = this;
       that.$toast({ msg: "确认要退出吗？" });
-      that.bus.$on("toastConfirm", function () {
+      that.$bus.$on("toastConfirm", function () {
         localStorage.removeItem("token");
         localStorage.removeItem("router");
         localStorage.removeItem("user");
@@ -229,8 +229,14 @@ export default {
     },
     async getMenu() {
       let that = this;
+      let user = that.$u.getItemObj('user');
+      if(!user){
+        localStorage.clear();
+        that.$hint({ msg: "请前往登录", type: "error" });
+        that.$router.replace('/login');
+      }
       try {
-        let result = await that.api.fetchMenu({ auth: "admin" });
+        let result = await that.api.fetchMenu({ auth: user.auth });
         if (result.code == 200) {
           that.menu = result.data;
           that.$u.saveItemObj("menu", result.data);
