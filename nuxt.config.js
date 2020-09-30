@@ -123,5 +123,9 @@ export default {
   env: {
     BASE_URL: process.env.BASE_URL,
     NODE_ENV: process.env.NODE_ENV
+  },
+  loading: {
+    height: "2px",
+    color: "#0094ff"
   }
 };

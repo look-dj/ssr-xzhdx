@@ -115,19 +115,20 @@ export default {
       that.userModel.pass = that.$md5(that.userModel.password);
       delete that.userModel.password;
       try {
-        // that.$loading({ msg: "登录" });
+        that.$loading({ msg: "登录" });
         let result = await that.api.login(that.userModel, that);
         if (result.code === 200) {
           console.log(result);
           localStorage.setItem("token", result.data.token);
           that.$u.saveItemObj("user", result.data);
-          // that.userModelReset();
-          // that.$hint({ msg: result.msg });
+          that.userModelReset();
+          that.$hint({ msg: result.msg });
+          that.$router.replace("/");
           // setTimeout(() => {
-          //   that.$router.replace("/index");
+          //   that.$router.replace("/");
           // }, 500);
         } else {
-          // that.$hint({ msg: "登录失败请检查账号密码", type: "error" });
+          that.$hint({ msg: "登录失败请检查账号密码", type: "error" });
           that.userModelReset();
         }
       } catch (e) {
