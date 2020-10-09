@@ -9,7 +9,12 @@
       <v-card-text>
         <v-row>
           <v-col cols="12">
-            <v-textarea solo label="摘要" auto-grow v-model="pageModel.description"></v-textarea>
+            <v-textarea
+              solo
+              label="摘要"
+              auto-grow
+              v-model="pageModel.description"
+            ></v-textarea>
           </v-col>
           <v-col cols="12">
             <span class="mb-3 d-block">请编辑内容</span>
@@ -22,8 +27,9 @@
           width="100"
           class="mx-3"
           @click="submit(pageType)"
-          :style="[theme.bg_p,theme.co]"
-        >{{pageType==='add'?'提交':'确认修改'}}</v-btn>
+          :style="[theme.bg_p, theme.co]"
+          >{{ pageType === "add" ? "提交" : "确认修改" }}</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-container>
@@ -42,6 +48,15 @@ export default {
     sonColumn: [],
     nid: null,
   }),
+  async asyncData({ app, query }) {
+    let res = await app.api.getNodeById({ id: query.nid });
+    return { documentTitle: res.data.title };
+  },
+  head() {
+    return {
+      title: this.documentTitle,
+    };
+  },
   async mounted() {
     let that = this;
     that.nid = that.$route.query.nid; //节点id 通过节点id获得栏目信息 通过栏目信息获得文章

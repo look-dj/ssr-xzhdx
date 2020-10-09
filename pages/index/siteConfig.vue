@@ -57,9 +57,14 @@ export default {
     let that = this;
     that.siteModel = await that.siteGet();
   },
-  async asyncData(ctx){
-    console.log(ctx);
-    // let _node = await ctx.$axios
+  async asyncData({app, query}){
+    let res = await app.api.getNodeById({id: query.nid});
+    return {documentTitle: res.data.title}
+  },
+  head(){
+    return {
+      title: this.documentTitle
+    }
   },
   methods: {
     async siteGet() {

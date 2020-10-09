@@ -84,6 +84,11 @@ export default {
     },
     passState: false,
   }),
+  head(){
+    return {
+      title: "登录"
+    }
+  },
   async mounted() {
     // let res = await api.getRouter();
     // console.log(res);

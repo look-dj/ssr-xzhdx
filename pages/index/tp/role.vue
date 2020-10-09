@@ -7,22 +7,28 @@
     </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
-        <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]" class="mr-2">+添加新角色</v-btn>
-        <v-btn text :style="[theme.bg_p,theme.co]">
+        <v-btn
+          text
+          @click="dialog = true"
+          :style="[theme.bg_p, theme.co]"
+          class="mr-2"
+          >+添加新角色</v-btn
+        >
+        <v-btn text :style="[theme.bg_p, theme.co]">
           <v-icon small>iconfont-shanchu</v-icon>删除选中
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn text :style="[theme.bg_p,theme.co]">
+        <v-btn text :style="[theme.bg_p, theme.co]">
           <v-icon class="mr-2">iconfont-sousuo</v-icon>搜索
         </v-btn>
       </v-toolbar>
 
       <v-data-table disable-sort :items="items" :headers="headers" show-select>
         <!-- <template v-slot:item.id="{item}">{{item-key}}</template> -->
-        <template
-          v-slot:item.date="{item}"
-        >{{$u.format.call(new Date(Number(item.date)), "yyyy-MM-dd")}}</template>
-        <template v-slot:item.oper="{item}">
+        <template v-slot:item.date="{ item }">{{
+          $u.format.call(new Date(Number(item.date)), "yyyy-MM-dd")
+        }}</template>
+        <template v-slot:item.oper="{ item }">
           <v-btn
             fab
             x-small
@@ -30,7 +36,7 @@
             title="删除"
             class="mx-1"
             @click="deleteCase(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-customerarchivesrecycleBin</v-icon>
           </v-btn>
@@ -41,7 +47,7 @@
             title="修改"
             class="mx-1"
             @click="roleEdit(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-basepermissionapproveApply</v-icon>
           </v-btn>
@@ -51,23 +57,49 @@
 
     <v-dialog v-model="dialog" fullscreen persistent hide-overlay>
       <v-card class="d-flex align-center flex-column" v-if="dialog">
-        <v-card-title class="justify-center text-h5">{{dialogType==='add'?'添加':'编辑'}}角色信息</v-card-title>
+        <v-card-title class="justify-center text-h5"
+          >{{ dialogType === "add" ? "添加" : "编辑" }}角色信息</v-card-title
+        >
         <v-col cols="12" md="8">
           <v-card-text>
             <v-row>
-              <upload type="card" v-model="imgFile" cols="6" :src="roleModel.avatar"></upload>
+              <upload
+                type="card"
+                v-model="imgFile"
+                cols="6"
+                :src="roleModel.avatar"
+              ></upload>
               <v-col cols="6" height="100" class="px-10">
-                <v-text-field label="角色名称" v-model="roleModel.name"></v-text-field>
-                <v-select label="角色性别" v-model="roleModel.sex" :items="['男','女']"></v-select>
+                <v-text-field
+                  label="角色名称"
+                  v-model="roleModel.name"
+                ></v-text-field>
+                <v-select
+                  label="角色性别"
+                  v-model="roleModel.sex"
+                  :items="['男', '女']"
+                ></v-select>
               </v-col>
               <v-col cols="6" height="100" class="px-10">
-                <v-text-field label="角色境界" v-model="roleModel.realm"></v-text-field>
+                <v-text-field
+                  label="角色境界"
+                  v-model="roleModel.realm"
+                ></v-text-field>
               </v-col>
               <v-col cols="6" height="100" class="px-10">
-                <v-select label="势力划分" v-model="roleModel.faction" :items="['北凉','江南']"></v-select>
+                <v-select
+                  label="势力划分"
+                  v-model="roleModel.faction"
+                  :items="['北凉', '江南']"
+                ></v-select>
               </v-col>
               <v-col cols="12">
-                <v-textarea label="人物描述" solo auto-grow v-model="roleModel.introduce"></v-textarea>
+                <v-textarea
+                  label="人物描述"
+                  solo
+                  auto-grow
+                  v-model="roleModel.introduce"
+                ></v-textarea>
               </v-col>
             </v-row>
           </v-card-text>
@@ -77,14 +109,16 @@
             width="100"
             class="mx-3"
             @click="submit(dialogType)"
-            :style="[theme.bg_p,theme.co]"
-          >{{dialog==='add'?'提交':'确认修改'}}</v-btn>
+            :style="[theme.bg_p, theme.co]"
+            >{{ dialog === "add" ? "提交" : "确认修改" }}</v-btn
+          >
           <v-btn
             width="100"
             class="mx-3"
-            @click="roleModelReset(1);"
-            :style="[theme.bg_p,theme.co]"
-          >关闭</v-btn>
+            @click="roleModelReset(1)"
+            :style="[theme.bg_p, theme.co]"
+            >关闭</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -120,6 +154,15 @@ export default {
     imgFile: {},
     sonColumn: [],
   }),
+  async asyncData({ app, query }) {
+    let res = await app.api.getNodeById({ id: query.nid });
+    return { documentTitle: res.data.title };
+  },
+  head() {
+    return {
+      title: this.documentTitle,
+    };
+  },
   async mounted() {
     let that = this;
     that.roleModel.nid = that.$route.query.nid;

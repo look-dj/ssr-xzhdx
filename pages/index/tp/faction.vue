@@ -7,13 +7,15 @@
     </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
-        <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]">+添加新势力</v-btn>
+        <v-btn text @click="dialog = true" :style="[theme.bg_p, theme.co]"
+          >+添加新势力</v-btn
+        >
         <v-spacer></v-spacer>
-        <v-btn text :style="[theme.bg_p,theme.co]">搜索</v-btn>
+        <v-btn text :style="[theme.bg_p, theme.co]">搜索</v-btn>
       </v-toolbar>
 
       <v-data-table disable-sort :items="items" :headers="headers">
-        <template v-slot:item.oper="{item}">
+        <template v-slot:item.oper="{ item }">
           <v-btn
             fab
             x-small
@@ -21,7 +23,7 @@
             title="删除"
             class="mx-1"
             @click="factionDelete(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-customerarchivesrecycleBin</v-icon>
           </v-btn>
@@ -32,7 +34,7 @@
             title="修改"
             class="mx-1"
             @click="factionEdit(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-basepermissionapproveApply</v-icon>
           </v-btn>
@@ -46,17 +48,40 @@
         <v-col cols="12" md="8">
           <v-card-text>
             <v-row>
-              <upload type="auto" cols="12" v-model="imgFile" :src="factionModel.pic"></upload>
+              <upload
+                type="auto"
+                cols="12"
+                v-model="imgFile"
+                :src="factionModel.pic"
+              ></upload>
               <v-col cols="6" height="100" class="px-10">
-                <v-text-field label="势力名称" v-model="factionModel.name"></v-text-field>
-                <v-text-field label="年代" v-model="factionModel.years"></v-text-field>
+                <v-text-field
+                  label="势力名称"
+                  v-model="factionModel.name"
+                ></v-text-field>
+                <v-text-field
+                  label="年代"
+                  v-model="factionModel.years"
+                ></v-text-field>
               </v-col>
               <v-col cols="6" height="100" class="px-10">
-                <v-text-field label="统治者" v-model="factionModel.lead"></v-text-field>
-                <v-select label="当前状态" :items="['兴盛','羸弱']" v-model="factionModel.state"></v-select>
+                <v-text-field
+                  label="统治者"
+                  v-model="factionModel.lead"
+                ></v-text-field>
+                <v-select
+                  label="当前状态"
+                  :items="['兴盛', '羸弱']"
+                  v-model="factionModel.state"
+                ></v-select>
               </v-col>
               <v-col cols="12">
-                <v-textarea label="大致介绍" solo auto-grow v-model="factionModel.introduce"></v-textarea>
+                <v-textarea
+                  label="大致介绍"
+                  solo
+                  auto-grow
+                  v-model="factionModel.introduce"
+                ></v-textarea>
               </v-col>
             </v-row>
           </v-card-text>
@@ -66,14 +91,16 @@
             width="100"
             class="mx-3"
             @click="submit(dialogType)"
-            :style="[theme.bg_p,theme.co]"
-          >提交</v-btn>
+            :style="[theme.bg_p, theme.co]"
+            >提交</v-btn
+          >
           <v-btn
             width="100"
             class="mx-3"
-            @click="factionModelReset(1);"
-            :style="[theme.bg_p,theme.co]"
-          >关闭</v-btn>
+            @click="factionModelReset(1)"
+            :style="[theme.bg_p, theme.co]"
+            >关闭</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -108,6 +135,15 @@ export default {
     dialogType: "add",
     sonColumn: [],
   }),
+  async asyncData({ app, query }) {
+    let res = await app.api.getNodeById({ id: query.nid });
+    return { documentTitle: res.data.title };
+  },
+  head() {
+    return {
+      title: this.documentTitle,
+    };
+  },
   async mounted() {
     let that = this;
     that.factionModel.nid = that.$route.query.nid;

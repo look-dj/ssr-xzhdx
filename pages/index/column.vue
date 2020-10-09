@@ -248,7 +248,8 @@ export default {
     },
     htmlList: [],
   }),
-  asyncData(ctx) {
+  async asyncData({ app, query }) {
+    let res = await app.api.getNodeById({ id: query.nid });
     let files = require.context("./tp/", false, /\.vue$/);
     let fileList = [];
     files.keys().forEach((key) => {
@@ -259,7 +260,12 @@ export default {
         name: temp,
       });
     });
-    return { fileList };
+    return { fileList, documentTitle: res.data.title };
+  },
+  head() {
+    return {
+      title: this.documentTitle,
+    };
   },
   async mounted() {
     let that = this;
@@ -419,9 +425,9 @@ export default {
         icon: "",
         cid: this.columnNodeList[0].self,
       };
-      
+
       if (type) {
-        localStorage.removeItem('menu');
+        localStorage.removeItem("menu");
         that.getColumnList();
       }
     },

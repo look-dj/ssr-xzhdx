@@ -115,6 +115,15 @@ export default {
     that.getColumn();
     that.bannerQueryAll();
   },
+  async asyncData({app, query}){
+    let res = await app.api.getNodeById({id: query.nid});
+    return {documentTitle: res.data.title}
+  },
+  head(){
+    return {
+      title: this.documentTitle
+    }
+  },
   methods: {
     bannerModelReset(type = null) {
       let that = this;

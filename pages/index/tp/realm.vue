@@ -7,12 +7,14 @@
     </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
-        <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]">+添加新境界</v-btn>
+        <v-btn text @click="dialog = true" :style="[theme.bg_p, theme.co]"
+          >+添加新境界</v-btn
+        >
         <v-spacer></v-spacer>
-        <v-btn text :style="[theme.bg_p,theme.co]">搜索</v-btn>
+        <v-btn text :style="[theme.bg_p, theme.co]">搜索</v-btn>
       </v-toolbar>
       <v-data-table disable-sort :items="items" :headers="headers">
-        <template v-slot:item.oper="{item}">
+        <template v-slot:item.oper="{ item }">
           <v-btn
             fab
             x-small
@@ -20,7 +22,7 @@
             title="删除"
             class="mx-1"
             @click="realmDelete(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-customerarchivesrecycleBin</v-icon>
           </v-btn>
@@ -31,7 +33,7 @@
             title="修改"
             class="mx-1"
             @click="realmEdit(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-basepermissionapproveApply</v-icon>
           </v-btn>
@@ -40,16 +42,31 @@
     </v-card>
     <v-dialog v-model="dialog" fullscreen persistent hide-overlay>
       <v-card class="d-flex align-center flex-column" v-if="dialog">
-        <v-card-title class="justify-center text-h5">{{dialogType==="add"?'添加新境界':"更新境界"}}</v-card-title>
+        <v-card-title class="justify-center text-h5">{{
+          dialogType === "add" ? "添加新境界" : "更新境界"
+        }}</v-card-title>
         <v-col cols="12" md="8">
           <v-card-text>
             <v-row>
-              <upload type="auto" cols="6" v-model="imgFile" :src="realmModel.pic"></upload>
+              <upload
+                type="auto"
+                cols="6"
+                v-model="imgFile"
+                :src="realmModel.pic"
+              ></upload>
               <v-col cols="6" height="100">
-                <v-text-field label="境界名称" v-model="realmModel.name"></v-text-field>
+                <v-text-field
+                  label="境界名称"
+                  v-model="realmModel.name"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" height="100">
-                <v-textarea label="大致介绍" solo auto-grow v-model="realmModel.introduce"></v-textarea>
+                <v-textarea
+                  label="大致介绍"
+                  solo
+                  auto-grow
+                  v-model="realmModel.introduce"
+                ></v-textarea>
               </v-col>
             </v-row>
           </v-card-text>
@@ -59,14 +76,16 @@
             width="100"
             class="mx-3"
             @click="submit(dialogType)"
-            :style="[theme.bg_p,theme.co]"
-          >{{dialogType==="add"?'添加新境界':"更新境界"}}</v-btn>
+            :style="[theme.bg_p, theme.co]"
+            >{{ dialogType === "add" ? "添加新境界" : "更新境界" }}</v-btn
+          >
           <v-btn
             width="100"
             class="mx-3"
-            @click="realmModelReset(1);"
-            :style="[theme.bg_p,theme.co]"
-          >关闭</v-btn>
+            @click="realmModelReset(1)"
+            :style="[theme.bg_p, theme.co]"
+            >关闭</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -94,6 +113,15 @@ export default {
     dialogType: "add",
     sonColumn: [],
   }),
+  async asyncData({ app, query }) {
+    let res = await app.api.getNodeById({ id: query.nid });
+    return { documentTitle: res.data.title };
+  },
+  head() {
+    return {
+      title: this.documentTitle,
+    };
+  },
   async mounted() {
     let that = this;
     that.realmModel.nid = that.$route.query.nid;

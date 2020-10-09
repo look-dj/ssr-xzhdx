@@ -14,11 +14,7 @@ export default {
     file: {},
     data: "",
   }),
-  async asyncData({app, query}){
-    // let res = await app.api.getNodeById({id: 1});
-    console.log(query);
-    // let _node = await ctx.$axios
-  },
+
   methods: {
     async test() {
       let that = this;

@@ -195,7 +195,8 @@ export default {
     icons: _static.icons,
     columns: [],
   }),
-  asyncData(ctx) {
+ async asyncData({app, query}) {
+     let res = await app.api.getNodeById({id: query.nid});
     let files = require.context("../index/", false, /\.vue$/);
     let fileList = [];
     files.keys().forEach((key) => {
@@ -206,7 +207,12 @@ export default {
         name: temp,
       });
     });
-    return { fileList };
+    return { fileList,documentTitle: res.data.title };
+  },
+  head(){
+    return {
+      title: this.documentTitle
+    }
   },
   async mounted() {
     let that = this;
@@ -227,7 +233,7 @@ export default {
       that.dialogType = "add";
       that.imgFile = {};
       that.dialog = false;
-      if (!type) {
+      if (type) {
         that.nodeQueryAll();
         localStorage.removeItem("menu");
       }
@@ -258,7 +264,7 @@ export default {
       let that = this;
       that.nodeModel = await that.nodeRead(id);
       that.nodeModel.cid = that.parentNode.find(
-        (n) => n.id == that.nodeModel.cid
+        (n) => n.cid == that.nodeModel.cid
       );
       that.nodeModel.cid = that.nodeModel.cid.self;
       if (!that.nodeModel) return that.nodeModelReset(1);
