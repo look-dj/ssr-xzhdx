@@ -258,7 +258,7 @@ export default {
     async roleDelete(id) {
       let that = this;
       that.$toast({ msg: "确认要删除这位角色吗？" });
-      that.bus.$on("toastConfirm", async function () {
+      that.$bus.$on("toastConfirm", async function () {
         let result = await that.roleRead(id);
         if (result.avatar) {
           let result0 = await that.api.deleteFile({ path: result.avatar });

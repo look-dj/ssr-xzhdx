@@ -215,7 +215,7 @@ export default {
     async realmDelete(id) {
       let that = this;
       that.$toast({ msg: "确定要删除这方境界吗？" });
-      that.bus.$on("toastConfirm", async function () {
+      that.$bus.$on("toastConfirm", async function () {
         let result = await that.realmRead(id);
         if (result.pic) {
           let result0 = await that.api.deleteFile({ path: result.pic }, that);

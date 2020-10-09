@@ -234,7 +234,7 @@ export default {
     async factionDelete(id) {
       let that = this;
       that.$toast({ msg: "确定要删除这方势力吗？" });
-      that.bus.$on("toastConfirm", async function () {
+      that.$bus.$on("toastConfirm", async function () {
         let result = await that.factionRead(id);
         if (result.pic) {
           let result0 = await that.api.deleteFile({ path: result.pic });

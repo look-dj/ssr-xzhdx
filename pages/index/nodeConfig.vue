@@ -325,7 +325,7 @@ export default {
       that.$toast({
         msg: "确认删除吗？",
       });
-      that.bus.$on("toastConfirm", async function () {
+      that.$bus.$on("toastConfirm", async function () {
         try {
           let result = await that.crud.delete({
             id,

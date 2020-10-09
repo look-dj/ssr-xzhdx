@@ -210,7 +210,7 @@ export default {
     async bannerDelete(id) {
       let that = this;
       that.$toast({ msg: "确认删除吗？" });
-      that.bus.$on("toastConfirm", async function () {
+      that.$bus.$on("toastConfirm", async function () {
         if (that.bannerModel.pic.length > 0) {
           try {
             let result = await that.api.deleteFile({

@@ -219,7 +219,7 @@ export default {
     async yearDelete(id) {
       let that = this;
       that.$toast({ msg: "确定要删除这方时间线吗？" });
-      that.bus.$on("toastConfirm", async function () {
+      that.$bus.$on("toastConfirm", async function () {
         let result = await that.yearRead(id);
         // if (result.pic) {
         //   let result0 = await that.api.deleteFile({ path: result.pic }, that);

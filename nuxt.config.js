@@ -91,6 +91,9 @@ export default {
       }
     }
   },
+  router:{
+    // base: "/panel"
+  },
   vuetify:{},
   /*
    ** Build configuration
