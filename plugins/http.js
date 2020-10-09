@@ -8,8 +8,10 @@ let temp = {
 const whiteList = ["/login", "/home", "/register"];
 class Request {
   axios;
-  constructor(axios) {
-    this.axios = axios;
+  cookie;
+  constructor(_app) {
+    this.axios = _app.$axios;
+    this.cookies = _app.$cookies;
   }
   t(data = {}, obj = {}) {
     return this.fetch("/t", data, obj);
@@ -56,6 +58,9 @@ class Request {
   }
   getUserByToken(data = {}, obj = {}) {
     return this.fetch("/panel/getUserByToken", data, obj, "get");
+  }
+  getNodeById(data={}, obj = {}){
+    return this.fetch("/panel/node/read", data, obj);
   }
   async upload(data, obj = {}, deletePath = "") {
     let that = this;
@@ -134,7 +139,7 @@ class Request {
     if (util.checkObjectIsEmpty(obj)) obj = temp;
     let o = obj.$loading();
     this.axios.setHeader(head.name, head.header);
-    let token = localStorage.getItem("token");
+    let token = this.cookies.get("token");
     let inWhiteList = s => whiteList.some(w => w === s);
     if (!inWhiteList(url)) {
       this.axios.setHeader("Authorization", "auth "+token);
@@ -152,5 +157,8 @@ class Request {
       );
     });
   }
+}
+export default ({ app }) => {
+  app.api = new Request(app);
 }
 Vue.prototype.Request = Request;

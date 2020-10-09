@@ -119,7 +119,7 @@ export default {
         let result = await that.api.login(that.userModel, that);
         if (result.code === 200) {
           console.log(result);
-          localStorage.setItem("token", result.data.token);
+          that.$cookies.set("token", result.data.token);
           that.userModelReset();
           that.$hint({ msg: result.msg });
           that.$router.push("/");

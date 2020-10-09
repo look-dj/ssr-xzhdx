@@ -142,11 +142,10 @@ export default {
     viewKey: 0,
     listModel: 0,
     menu: [],
-    documentTitle: '雪中控制台'
   }),
   head(){
     return {
-      title: this.documentTitle
+      title: '雪中控制台'
     }
   },
   mounted() {
@@ -185,10 +184,9 @@ export default {
     },
     replace(data) {
       let that = this;
-      // console.log(data);
+      console.log(data);
       that.viewKey++;
       that.$store.commit("setMid", data.id);
-      that.documentTitle = data.title
       that.$router.push({
         path: data.path,
         query: { nid: data.id },
@@ -226,9 +224,8 @@ export default {
       let that = this;
       that.$toast({ msg: "确认要退出吗？" });
       that.$bus.$on("toastConfirm", function () {
-        localStorage.removeItem("token");
-        localStorage.removeItem("router");
-        localStorage.removeItem("user");
+        that.$cookies.removeAll();
+        localStorage.clear();
         that.$hint({ msg: "已完成退出", type: "error" });
         setTimeout(() => {
           that.$router.replace("/login");

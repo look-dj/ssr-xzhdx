@@ -57,6 +57,10 @@ export default {
     let that = this;
     that.siteModel = await that.siteGet();
   },
+  async asyncData(ctx){
+    console.log(ctx);
+    // let _node = await ctx.$axios
+  },
   methods: {
     async siteGet() {
       let that = this;

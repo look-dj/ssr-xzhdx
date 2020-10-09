@@ -15,7 +15,6 @@
 <script>
 import store from "@/store/index";
 export default {
-  name: "myToast",
   store,
   data: () => ({
     msg: "",

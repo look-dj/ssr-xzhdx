@@ -60,6 +60,7 @@ let obj = {
   },
   getParamsByHerf(herf) {
     let src = herf.split("?")[1];
+    if(!src) return false;
     let srcArr = src.split("&");
     let obj = {};
     if (srcArr.length == 1) {

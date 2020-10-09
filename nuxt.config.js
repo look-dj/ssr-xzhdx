@@ -59,10 +59,6 @@ export default {
       src: "~/plugins/http",
       ssr: true
     },
-    {
-      src: "~/plugins/editor",
-      ssr: true
-    },
     "~/plugins/axios"
   ],
   /*
@@ -77,7 +73,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy", 'cookie-universal-nuxt'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

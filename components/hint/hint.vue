@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: "hint",
   data: () => ({
     msg: "这是一个3s的提示狂",
     bool: true,

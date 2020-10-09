@@ -15,7 +15,6 @@
 </template>
 <script>
 export default {
-  name: "loading",
   data: () => ({
     bool: false,
     msg: "加载",

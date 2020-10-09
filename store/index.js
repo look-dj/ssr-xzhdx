@@ -10,7 +10,7 @@ const createStore = () => {
       routes: [],
       menu: [],
       mid: 1,
-      user: {}
+      user: {},
     },
     mutations,
     getters,

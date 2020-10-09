@@ -19,7 +19,7 @@ export default {
     isRouterAlive: true,
   }),
   created() {
-    Vue.prototype.api = new this.Request(this.$axios);
+    Vue.prototype.api = new this.Request(this);
   },
   asyncData({redirect}){
     return redirect('/404')
@@ -44,7 +44,8 @@ export default {
     // 拿到window窗口地址
     let _herf = window.location.href;
     _herf = that.$u.getParamsByHerf(_herf);
-    that.$store.commit('setMid', _herf.nid);
+    let nid = _herf ? _herf.nid : 1;
+    that.$store.commit('setMid', nid);
     // TODO 后期在处理路由nid加密的时候需要在这里经行解密
   },
   watch: {
@@ -67,10 +68,11 @@ export default {
     },
     async getInfo() {
       let that = this;
-      let token = that.$u.getItemForStorage("token");
+      let token = that.$cookies.get("token");
       if (!token) {
         localStorage.clear();
         that.$router.push("/login");
+        that.$cookies.removeAll();
         return;
       }
       try {

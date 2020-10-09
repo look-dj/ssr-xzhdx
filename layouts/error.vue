@@ -767,7 +767,7 @@
 </template>
 <script>
 export default {
-  name: "400",
+  name: "error",
   data: () => ({}),
 };
 </script>

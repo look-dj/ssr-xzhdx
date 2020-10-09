@@ -14,6 +14,11 @@ export default {
     file: {},
     data: "",
   }),
+  async asyncData({app, query}){
+    // let res = await app.api.getNodeById({id: 1});
+    console.log(query);
+    // let _node = await ctx.$axios
+  },
   methods: {
     async test() {
       let that = this;
@@ -33,7 +38,7 @@ export default {
   },
   mounted() {
     let that = this;
-
+    console.log(that.$cookies)
     // that.$toast({msg:'确定要这么做吗？'})
   },
 };

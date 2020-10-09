@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default function({ $axios, redirect, store }) {
+export default function({ $axios, redirect, store, $cookies }) {
   $axios.onRequest(config => {
     // console.log(config);
     // let time = parseInt(new Date().getTime()/1000);
@@ -30,11 +30,11 @@ export default function({ $axios, redirect, store }) {
     //检查相应的数据里面有token没有
     let token = response.data.token;
     if(token){ 
-      localStorage.setItem("token", token);
+      $cookies.set("token", token);
     }
     let code = response.data.code;
     if(code>350){
-      redirect("/400");
+      redirect("error");
     }
     delete response.data.token;
     return response;
