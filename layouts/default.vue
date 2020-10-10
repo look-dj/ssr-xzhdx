@@ -39,9 +39,8 @@ export default {
       that.$vuetify.theme.dark = true;
     } else that.$store.commit("changeTheme", default_theme);
     // 拿到window窗口地址
-    let _herf = window.location.href;
-    _herf = that.$u.getParamsByHerf(_herf);
-    let nid = _herf ? _herf.nid : 1;
+    let nid = that.$route.query.nid;
+    nid = nid ? nid : 1;
     that.$store.commit('setMid', nid);
     // TODO 后期在处理路由nid加密的时候需要在这里经行解密
   },

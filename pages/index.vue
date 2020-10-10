@@ -13,9 +13,9 @@
         :color="$vuetify.theme.dark ? '#1E1E1E' : '#f3f2f1'"
         @click="goToIndex"
         class="logo_place"
-        title="首页"
+        title="雪中控制台"
       >
-        <img src="~/static/logo.png" v-if="!menuState" class="logo" />
+        <img src="/panel/logo.png" v-if="!menuState" class="logo" />
         <v-subheader
           class="justify-center text-uppercase"
           width="100%"
@@ -85,7 +85,7 @@
       <v-btn depressed @click="commDrawer()" :style="[theme.bg_p, theme.co]">
         <v-icon>iconfont-goodsppecategory</v-icon>
       </v-btn>
-      <v-btn text class="ml-3" :style="[theme.bg_p, theme.co]">浏览首页</v-btn>
+      <v-btn text class="ml-3" :style="[theme.bg_p, theme.co]" @click="goToFrame">浏览首页</v-btn>
       <v-spacer></v-spacer>
       <v-btn
         depressed
@@ -174,6 +174,10 @@ export default {
     drawer_content.style.msOverflowStyle = "none"; //edge
   },
   methods: {
+    goToFrame(){
+      window.location.href = window.location.origin;
+      // console.log(location.origin)
+    },
     goToIndex() {
       let that = this;
       that.$router.push("/");
@@ -231,11 +235,13 @@ export default {
       let that = this;
       that.$toast({ msg: "确认要退出吗？" });
       that.$bus.$on("toastConfirm", function () {
+        let _loading = that.$loading({msg: '退出'});
         that.$cookies.removeAll();
         localStorage.clear();
         that.$hint({ msg: "已完成退出", type: "error" });
         setTimeout(() => {
-          that.$router.replace("/login");
+          that.$router.push({path: "/login"});
+          _loading.close();
         }, 500);
       });
     },

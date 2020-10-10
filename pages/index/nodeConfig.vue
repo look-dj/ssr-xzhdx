@@ -306,7 +306,7 @@ export default {
     async nodeQueryAll() {
       let that = this;
       try {
-        let result = await that.crud.queryAll();
+        let result = await that.crud.queryAll({}, that);
         that.items = result.code === 200 ? result.data : [];
         // that.items.map((n) => {
         //   n.order = n.id;

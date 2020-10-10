@@ -1,5 +1,5 @@
 import Vue from "vue";
-import util from './util.js'
+import util from "./util.js";
 let temp = {
   $loading: () => ({
     close: () => {}
@@ -59,7 +59,7 @@ class Request {
   getUserByToken(data = {}, obj = {}) {
     return this.fetch("/panel/getUserByToken", data, obj, "get");
   }
-  getNodeById(data={}, obj = {}){
+  getNodeById(data = {}, obj = {}) {
     return this.fetch("/panel/node/read", data, obj);
   }
   async upload(data, obj = {}, deletePath = "") {
@@ -69,7 +69,7 @@ class Request {
     try {
       that.axios.setHeader("Content-Type", "multipart/form-data");
       let result = await that.axios.put("/file/upload/serve", fm);
-      console.log(result)
+      console.log(result);
       if (result.data.code == 200) {
         if (deletePath.length > 0) {
           try {
@@ -142,7 +142,7 @@ class Request {
     let token = this.cookies.get("token");
     let inWhiteList = s => whiteList.some(w => w === s);
     if (!inWhiteList(url)) {
-      this.axios.setHeader("Authorization", "auth "+token);
+      this.axios.setHeader("Authorization", "auth " + token);
     }
     return new Promise((resolve, reject) => {
       this.axios["$" + method](url, data).then(
@@ -160,5 +160,5 @@ class Request {
 }
 export default ({ app }) => {
   app.api = new Request(app);
-}
+};
 Vue.prototype.Request = Request;

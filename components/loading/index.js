@@ -33,7 +33,6 @@ let loading = (options = {}) => {
 		instance.bool = true
 	})
 	l = instance;
-	// instance.close();
 	return instance
 }
 

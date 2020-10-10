@@ -29,8 +29,9 @@ export default function({ $axios, redirect, store, $cookies }) {
   $axios.onResponse(response => {
     //检查相应的数据里面有token没有
     let token = response.data.token;
+    let expires = store.state.expires 
     if(token){ 
-      $cookies.set("token", token);
+      $cookies.set("token", token, expires);
     }
     let code = response.data.code;
     if(code>350){

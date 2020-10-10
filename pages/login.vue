@@ -133,21 +133,26 @@ export default {
       if (that.$v.userModel.$invalid) {
         return;
       }
+      let _loading = that.$loading({ msg: "登录" });
       that.userModel.pass = that.$md5(that.userModel.password);
       delete that.userModel.password;
       try {
-        that.$loading({ msg: "登录" });
         let result = await that.api.login(that.userModel, that);
         if (result.code === 200) {
-          console.log(result);
-          that.$cookies.set("token", result.data.token);
+          // console.log(result);
+          that.$cookies.set(
+            "token",
+            result.data.token,
+            that.$store.state.expires
+          );
           that.userModelReset();
           that.$hint({ msg: result.msg });
-          that.$router.push("/");
-          // setTimeout(() => {
-          //   that.$router.replace("/");
-          // }, 500);
+          setTimeout(() => {
+            that.$router.push("/");
+            _loading.close();
+          }, 500);
         } else {
+          _loading.close();
           that.$hint({ msg: "登录失败请检查账号密码", type: "error" });
           that.userModelReset();
         }

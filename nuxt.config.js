@@ -129,5 +129,5 @@ export default {
   //   height: "2px",
   //   color: "#0094ff"
   // }
-  loading: false
+  loading: "~/components/loading/loading.vue"
 };

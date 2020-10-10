@@ -11,6 +11,9 @@ const createStore = () => {
       menu: [],
       mid: 1,
       user: {},
+      expires: {
+        maxAge: 60*60*31
+      }
     },
     mutations,
     getters,
