@@ -181,7 +181,6 @@ export default {
         value: "oper",
       },
     ],
-    items: [],
     dialog: false,
     dialogType: "add",
     nodeModel: {
@@ -194,9 +193,11 @@ export default {
     },
     icons: _static.icons,
     columns: [],
+    items: []
   }),
- async asyncData({app, query}) {
-     let res = await app.api.getNodeById({id: query.nid});
+  async asyncData({ app, query }) {
+    let api = app.api;
+    let res = await api.getNodeById({ id: query.nid });
     let files = require.context("../index/", false, /\.vue$/);
     let fileList = [];
     files.keys().forEach((key) => {
@@ -207,12 +208,12 @@ export default {
         name: temp,
       });
     });
-    return { fileList,documentTitle: res.data.title };
+    return { fileList, documentTitle: res.data.title };
   },
-  head(){
+  head() {
     return {
-      title: this.documentTitle
-    }
+      title: this.documentTitle,
+    };
   },
   async mounted() {
     let that = this;

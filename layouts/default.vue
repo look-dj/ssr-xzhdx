@@ -21,14 +21,11 @@ export default {
   created() {
     Vue.prototype.api = new this.Request(this);
   },
-  asyncData({redirect}){
-    return redirect('/404')
-  },
   async mounted() {
     // this.$vue._theme.primary = "#222";
     //做一个进入时的验证
     let that = this;
-    that.getInfo();
+    // that.getInfo();
     //修改主题
     let default_theme = that.$u.getItemForStorage("theme")
       ? that.$u.getItemForStorage("theme")

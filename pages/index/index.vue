@@ -36,7 +36,6 @@ import { Chart, registerShape, Util } from "@antv/g2"; //或者只引入需要�
 export default {
   vNname: "index",
   data: () => ({
-    columnData: [],
     loading: true,
   }),
   async mounted() {
@@ -56,10 +55,10 @@ export default {
         that.loading = false;
       } catch (e) {
         console.log(e);
-        // return that.$hint({
-        //   msg: "获取栏目信息失败",
-        //   type: "error",
-        // });
+        return that.$hint({
+          msg: "获取栏目信息失败",
+          type: "error",
+        });
       }
     },
     initLineChart() {

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="pa-0">
     <v-sheet
-      style="position: relative;z-index:10;"
+      style="position: relative; z-index: 10"
       color="#fff"
       height="70"
       elevation="2"
@@ -11,12 +11,20 @@
         <span class="text-h5">雪中悍刀行</span>
       </v-card>
     </v-sheet>
-    <v-sheet color="#f3f7f9" style="position: relative;z-index:9;" height="calc(100vh - 70px)">
+    <v-sheet
+      color="#f3f7f9"
+      style="position: relative; z-index: 9"
+      height="calc(100vh - 70px)"
+    >
       <v-sheet class="d-flex justify-center login_sheet" color="#eee">
         <v-sheet>
-          <v-img src="/HDJ454548.png"></v-img>
+          <v-img src="/panel/HDJ454548.png"></v-img>
         </v-sheet>
-        <v-sheet color="#fff" width="600" style="display:grid;place-items: center;">
+        <v-sheet
+          color="#fff"
+          width="600"
+          style="display: grid; place-items: center"
+        >
           <v-card flat min-width="350" light>
             <v-card-title class="justify-center">
               <span class="text-uppercase text-h4">welcome 登录</span>
@@ -33,13 +41,15 @@
               <v-text-field
                 label="密码"
                 v-model="userModel.password"
-                :type="passState?'text':'password'"
+                :type="passState ? 'text' : 'password'"
                 :error-messages="passwordErrors"
                 required
                 @input="$v.userModel.password.$touch()"
                 @blur="$v.userModel.password.$touch()"
-                :append-icon="passState?'iconfont-kejian':'iconfont-bukejian'"
-                @click:append="passState=!passState"
+                :append-icon="
+                  passState ? 'iconfont-kejian' : 'iconfont-bukejian'
+                "
+                @click:append="passState = !passState"
               ></v-text-field>
               <!-- <div class="d-flex">
                 <v-text-field label="请输入验证码"></v-text-field>
@@ -51,11 +61,12 @@
                 width="350"
                 height="50"
                 rounded
-                v-ripple="{class: '#0094ff'}"
+                v-ripple="{ class: '#0094ff' }"
                 color="#0094ff"
                 class="text-h6 white--text"
                 @click="login"
-              >登录</v-btn>
+                >登录</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-sheet>
@@ -79,17 +90,22 @@ export default {
   },
   data: () => ({
     userModel: {
-      account: "root",
-      password: "123123",
+      account: "",
+      password: "",
     },
     passState: false,
   }),
-  head(){
+  head() {
     return {
-      title: "登录"
-    }
+      title: "登录",
+    };
   },
   async mounted() {
+    let that = this;
+    if (process.env.NODE_ENV === "development") {
+      that.userModel.account = "root";
+      that.userModel.password = "123123";
+    }
     // let res = await api.getRouter();
     // console.log(res);
     // const whiteList = ["/login", "/home", "/register"];

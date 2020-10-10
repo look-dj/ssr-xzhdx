@@ -18,9 +18,8 @@ export default {
   methods: {
     async test() {
       let that = this;
-      console.log(that.file);
       let res = await that.api.upload(that.file, that);
-      console.log(res);
+      // console.log(res);
     },
   },
   watch: {
@@ -34,7 +33,7 @@ export default {
   },
   mounted() {
     let that = this;
-    console.log(that.$cookies)
+    // console.log(that.$cookies)
     // that.$toast({msg:'确定要这么做吗？'})
   },
 };

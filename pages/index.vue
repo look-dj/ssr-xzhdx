@@ -15,7 +15,7 @@
         class="logo_place"
         title="首页"
       >
-        <img src="/logo.png" v-if="!menuState" class="logo" />
+        <img src="~/static/logo.png" v-if="!menuState" class="logo" />
         <v-subheader
           class="justify-center text-uppercase"
           width="100%"
@@ -141,12 +141,25 @@ export default {
     viewCols: 12,
     viewKey: 0,
     listModel: 0,
-    menu: [],
   }),
-  head(){
+  head() {
     return {
-      title: '雪中控制台'
+      title: "雪中控制台",
+    };
+  },
+  async asyncData({ store, app, redirect }) {
+    let user = store.state.user;
+    let token = app.$cookies.get("token");
+    if (!token) {
+      app.$cookies.removeAll();
+      redirect("/login");
     }
+    let resultUser = await app.api.getUserByToken();
+    store.commit("setUser", resultUser.data);
+    let resultMenu = await app.api.fetchMenu({ auth: resultUser.data.auth });
+    store.commit("setMenu", resultMenu.data);
+    return { menu: resultMenu.data };
+    // let p1 =
   },
   mounted() {
     let that = this;
@@ -159,12 +172,6 @@ export default {
     drawer_content.classList.add("drawer"); //chrome
     drawer_content.style.scrollbarWidth = "none"; //firefox
     drawer_content.style.msOverflowStyle = "none"; //edge
-    let _menu = that.$u.getItemObj("menu");
-    if (_menu) {
-      that.menu = _menu;
-    } else {
-      that.getMenu();
-    }
   },
   methods: {
     goToIndex() {
@@ -232,29 +239,6 @@ export default {
         }, 500);
       });
     },
-    async getMenu() {
-      let that = this;
-      let user = that.$store.state.user;
-      if (!user) {
-        localStorage.clear();
-        that.$hint({ msg: "请前往登录", type: "error" });
-        that.$router.replace("/login");
-      }
-      try {
-        let result = await that.api.fetchMenu({ auth: user.auth });
-        if (result.code == 200) {
-          that.menu = result.data;
-          that.$u.saveItemObj("menu", result.data);
-          console.log(result);
-          return;
-        }
-        that.$hint({ msg: "获取菜单失败", type: "error" });
-      } catch (e) {
-        console.log(e);
-        that.$hint({ msg: "获取菜单失败", type: "error" });
-        throw new Error("获取菜单失败");
-      }
-    },
   },
 
   computed: {
@@ -289,7 +273,7 @@ export default {
 <style lang="scss">
 .logo_place {
   cursor: pointer;
-  &>img{
+  & > img {
     transition: all 0.3s;
   }
   &:hover {

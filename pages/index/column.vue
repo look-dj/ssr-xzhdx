@@ -225,7 +225,6 @@ export default {
         align: "center",
       },
     ],
-    columns: [],
     dialog: false,
     dialogType: "add",
     imgFile: {},
@@ -247,9 +246,12 @@ export default {
       cid: "",
     },
     htmlList: [],
+    columns:[]
   }),
   async asyncData({ app, query }) {
-    let res = await app.api.getNodeById({ id: query.nid });
+    let api = app.api;
+    let columnCrud = api.plant("column");
+    let res = await api.getNodeById({ id: query.nid });
     let files = require.context("./tp/", false, /\.vue$/);
     let fileList = [];
     files.keys().forEach((key) => {
