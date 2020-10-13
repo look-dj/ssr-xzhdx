@@ -15,7 +15,7 @@
         class="logo_place"
         title="雪中控制台"
       >
-        <img src="/panel/logo.png" v-if="!menuState" class="logo" />
+        <img src="logo.png" v-if="!menuState" class="logo" />
         <v-subheader
           class="justify-center text-uppercase"
           width="100%"
@@ -166,6 +166,7 @@ export default {
     //人物 势力 关于雪中
     //主页 境界划分
     // :style="`{backgroundColor:${_theme.primary}}`"
+    console.log(that.menu);
     let drawer_content = document.querySelector(
       ".v-navigation-drawer__content"
     );

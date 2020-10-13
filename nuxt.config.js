@@ -33,7 +33,7 @@ export default {
     link: [{
         rel: "icon",
         type: "image/x-icon",
-        href: "/panel/favicon.ico"
+        href: "/favicon.ico"
       },
       {
         rel: "stylesheet",
@@ -92,7 +92,7 @@ export default {
     }
   },
   router:{
-    base: "/panel"
+    // base: "/panel"
   },
   vuetify:{},
   /*

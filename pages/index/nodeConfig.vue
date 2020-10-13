@@ -251,6 +251,7 @@ export default {
       that.nodeModel.cid = _node.cid;
       that.nodeModel.deep = Number(_node.deep);
       if (type !== "add") return that.nodeUpdate();
+      console.log(that.nodeModel);
       try {
         let result = await that.crud.add(that.nodeModel, that);
         that.$hint({
@@ -316,7 +317,7 @@ export default {
         //   }
         // });
         that.items.sort((a, b) => a.order - b.order);
-        // console.log(that.items);
+        console.log(that.items);
       } catch (e) {
         console.log(e);
       }

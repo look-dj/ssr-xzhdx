@@ -18,7 +18,7 @@
     >
       <v-sheet class="d-flex justify-center login_sheet" color="#eee">
         <v-sheet>
-          <v-img src="/panel/HDJ454548.png"></v-img>
+          <v-img src="/HDJ454548.png"></v-img>
         </v-sheet>
         <v-sheet
           color="#fff"
