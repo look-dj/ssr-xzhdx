@@ -115,13 +115,13 @@
 
     <v-main class="v-main">
       <span v-if="temp_temp"></span>
-      <v-row align="stretch" height="100%">
-        <v-col :cols="viewCols" class="v-col9">
+      <v-row align="stretch" class="main_row">
+        <v-col :cols="viewCols" class="view_col pa-0" >
           <transition name="slide">
             <nuxt-child :key="viewKey"></nuxt-child>
           </transition>
         </v-col>
-        <v-col :cols="sideCols" class="v-col3 pa-0 ma-0">
+        <v-col v-if="sideType!==''" :cols="sideCols" class="side_col ma-0" :class="$vuetify.breakpoint.xs?'side_col_xs':''">
           <the-side :type="sideType" @close="closeSide"></the-side>
         </v-col>
       </v-row>
@@ -170,6 +170,9 @@ export default {
     let drawer_content = document.querySelector(
       ".v-navigation-drawer__content"
     );
+    if(that.$vuetify.breakpoint.xs){
+      document.querySelector(".v-main__wrap").style.position = "static";
+    }
     drawer_content.classList.add("drawer"); //chrome
     drawer_content.style.scrollbarWidth = "none"; //firefox
     drawer_content.style.msOverflowStyle = "none"; //edge
@@ -206,30 +209,34 @@ export default {
     },
     closeSide() {
       let that = this;
+      let lastHerf = window.location.href.charAt(
+        window.location.href.length - 1
+      );
       that.$nextTick(() => {
-        that.sideCols = 0;
-        that.viewCols = 12;
-        that.sideType = "";
-        let lastHerf = window.location.href.charAt(
-          window.location.href.length - 1
-        );
-        if (lastHerf === "/") {
-          that.viewKey++;
+        if(!that.$vuetify.breakpoint.xs){
+          that.sideCols = 0;
+          that.viewCols = 12;
+          if (lastHerf === "/") {
+            that.viewKey++;
+          }
         }
+        that.sideType = "";
       });
     },
     showSide(type) {
       let that = this;
+      let lastHerf = window.location.href.charAt(
+        window.location.href.length - 1
+      );
       that.$nextTick(() => {
+        if(!that.$vuetify.breakpoint.xs){
         that.sideCols = 3;
         that.viewCols = 9;
-        that.sideType = type;
-        let lastHerf = window.location.href.charAt(
-          window.location.href.length - 1
-        );
-        if (lastHerf === "/") {
-          that.viewKey++;
+          if (lastHerf === "/") {
+            that.viewKey++;
+          }
         }
+        that.sideType = type;
       });
     },
     logout() {
@@ -299,12 +306,14 @@ export default {
     }
   }
 }
+.v-navigation-drawer__border{
+  display: none !important;
+}
 </style>
 <style lang="scss" scoped>
 .box {
   position: relative;
   width: 100%;
-  height: calc(100% - 48px);
 }
 .logo {
   height: 100%;
@@ -312,17 +321,31 @@ export default {
   margin: 0 auto;
 }
 .v-main {
-  height: 100%;
-}
-.v-col3 {
+  height: calc(100vh - 48px);
+  overflow: scroll;
+  overflow-x: hidden;
+  margin-top: 48px;
+  padding-top: 0 !important;
   position: relative;
-  height: calc(100vh - 48px);
 }
-.v-col9 {
+.main_row{
+  height: 100%;
+  margin-left: 8px;
+}
+.side_col  {
+  position: relative;
+}
+.side_col_xs{
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 70%;
+}
+.view_col  {
+  padding-left: 8px;
   height: calc(100vh - 48px);
-  overflow: auto;
-  overflow-y: scroll;
-  // padding-bottom: 48px;
+  overflow: scroll;
 }
 .f12 {
   font-size: 12px;

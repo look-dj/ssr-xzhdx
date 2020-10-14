@@ -29,7 +29,7 @@ const Hint = (options = {}) => {
     vuetify: new vuetify(),
     data: opts,
   });
-  let parent = document.querySelector(".v-application");
+  let parent = document.querySelector("#app");
   parent.appendChild(instance.$el);
   Vue.nextTick(() => {
     instance.bool = true;

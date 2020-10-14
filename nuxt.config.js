@@ -22,7 +22,19 @@ export default {
       },
       {
         name: "viewport",
-        content: "width=device-width, initial-scale=1"
+        content: "width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0"
+      },
+      {
+        name: "apple-mobile-web-app-capable",
+        content: "yes"
+      },
+      {
+        name: "apple-mobile-web-app-status-bar-style",
+        content: "black"
+      },
+      {
+        name: "format-detection",
+        content: "telephone=no"
       },
       {
         hid: "description",

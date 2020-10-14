@@ -1,7 +1,7 @@
 <template>
-  <v-container ref="container" fluid class="px-12">
+  <v-container ref="container" fluid :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
     <v-card class="px-6 pb-3" elevation="1">
-      <v-toolbar flat>
+      <v-toolbar flat >
         <v-card-title>栏目管理</v-card-title>
         <v-spacer></v-spacer>
         <v-btn

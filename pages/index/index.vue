@@ -2,7 +2,7 @@
   <v-container fluid class="px-12 container">
     <h1 class="text-center head">欢迎进入雪中控制台</h1>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="12" md="3">
         <v-card flat :loading="loading">
           <v-card-title>栏目管理</v-card-title>
           <v-card-text class="pa-0">
@@ -10,7 +10,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="3">
+      <v-col cols="12" md="3">
         <v-card flat :loading="loading">
           <v-card-title>栏目柱状信息</v-card-title>
           <v-card-text class="pa-0">
@@ -18,7 +18,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" md="6">
         <v-card flat :loading="loading">
           <v-card-title>词云</v-card-title>
           <v-card-text class="pa-0">

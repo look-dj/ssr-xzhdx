@@ -17,15 +17,15 @@
       height="calc(100vh - 70px)"
     >
       <v-sheet class="d-flex justify-center login_sheet" color="#eee">
-        <v-sheet>
+        <v-sheet v-if="!$vuetify.breakpoint.xs">
           <v-img src="/HDJ454548.png"></v-img>
         </v-sheet>
         <v-sheet
           color="#fff"
-          width="600"
-          style="display: grid; place-items: center"
+          :width="!$vuetify.breakpoint.xs?600:''"
+          style="display: grid; place-items: center;padding: 20px"
         >
-          <v-card flat min-width="350" light>
+          <v-card flat min-width="300" light>
             <v-card-title class="justify-center">
               <span class="text-uppercase text-h4">welcome 登录</span>
             </v-card-title>
@@ -58,7 +58,7 @@
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn
-                width="350"
+                :width="!$vuetify.breakpoint.xs?350:250"
                 height="50"
                 rounded
                 v-ripple="{ class: '#0094ff' }"

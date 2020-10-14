@@ -35,7 +35,7 @@ export default function({ $axios, redirect, store, $cookies }) {
     }
     let code = response.data.code;
     if(code>350){
-      redirect("error");
+      redirect("/error");
     }
     delete response.data.token;
     return response;
@@ -44,7 +44,7 @@ export default function({ $axios, redirect, store, $cookies }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
     if (code === 400) {
-      redirect("/400");
+      redirect("/error");
     }
   });
 }
