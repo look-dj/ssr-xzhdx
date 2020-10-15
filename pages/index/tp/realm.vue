@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="px-12">
+  <v-container fluid :class="$xs?'px-0':'px-12'">
     <v-subheader>境界介绍</v-subheader>
     <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
@@ -7,11 +7,11 @@
     </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
-        <v-btn text @click="dialog = true" :style="[theme.bg_p, theme.co]"
-          >+添加新境界</v-btn
+        <v-btn text @click="dialog = true" :style="[theme.bg_p, theme.co]" :small="$xs?true:false"
+          >{{$xs?'+添加':'+添加新境界'}}</v-btn
         >
         <v-spacer></v-spacer>
-        <v-btn text :style="[theme.bg_p, theme.co]">搜索</v-btn>
+        <v-btn text :style="[theme.bg_p, theme.co]" :small="$xs?true:false">搜索</v-btn>
       </v-toolbar>
       <v-data-table disable-sort :items="items" :headers="headers">
         <template v-slot:item.oper="{ item }">

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="px-12 v-container">
+  <v-container fluid class="v-container" :class="$xs?'px-0':'px-12'">
     <v-subheader>角色管理</v-subheader>
     <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
@@ -12,13 +12,14 @@
           @click="dialog = true"
           :style="[theme.bg_p, theme.co]"
           class="mr-2"
-          >+添加新角色</v-btn
+          :small="$xs?true:false"
+          >{{$xs?'+添加':'+添加新角色'}}</v-btn
         >
-        <v-btn text :style="[theme.bg_p, theme.co]">
+        <v-btn text :style="[theme.bg_p, theme.co]" :small="$xs?true:false">
           <v-icon small>iconfont-shanchu</v-icon>删除选中
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn text :style="[theme.bg_p, theme.co]">
+        <v-btn text :style="[theme.bg_p, theme.co]" :small="$xs?true:false">
           <v-icon class="mr-2">iconfont-sousuo</v-icon>搜索
         </v-btn>
       </v-toolbar>
@@ -66,27 +67,29 @@
               <upload
                 type="card"
                 v-model="imgFile"
-                cols="6"
+                :cols="$xs?'12':'6'"
                 :src="roleModel.avatar"
               ></upload>
-              <v-col cols="6" height="100" class="px-10">
+              <v-col cols="12" height="100" :class="$xs?'px-1 d-flex flex-row':'px-10'">
                 <v-text-field
                   label="角色名称"
                   v-model="roleModel.name"
+                  :class="$xs?'px-1':'px-10'"
                 ></v-text-field>
                 <v-select
                   label="角色性别"
                   v-model="roleModel.sex"
+                  :class="$xs?'px-1':'px-10'"
                   :items="['男', '女']"
                 ></v-select>
               </v-col>
-              <v-col cols="6" height="100" class="px-10">
+              <v-col cols="6" height="100" :class="$xs?'px-1':'px-10'">
                 <v-text-field
                   label="角色境界"
                   v-model="roleModel.realm"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6" height="100" class="px-10">
+              <v-col cols="6" height="100" :class="$xs?'px-1':'px-10'">
                 <v-select
                   label="势力划分"
                   v-model="roleModel.faction"

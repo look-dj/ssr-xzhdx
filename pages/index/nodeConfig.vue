@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="px-12">
+  <v-container fluid :class="$xs?'px-0':'px-12'">
     <v-subheader>节点设置</v-subheader>
     <v-card class="px-6">
       <v-toolbar flat>
@@ -7,10 +7,10 @@
           text
           @click="dialog = true"
           :style="[theme.bg_p, theme.co]"
-          class="mr-2"
+          class="mr-2" :small="$xs?true:false"
           >+添加</v-btn
         >
-        <v-btn text :style="[theme.bg_p, theme.co]">更新</v-btn>
+        <v-btn text :style="[theme.bg_p, theme.co]" :small="$xs?true:false">更新</v-btn>
       </v-toolbar>
       <v-data-table
         align="center"
@@ -47,16 +47,16 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-dialog v-model="dialog" persistent class="v-dialog">
+    <v-dialog v-model="dialog" persistent class="v-dialog" :fullscreen="$xs?true:false" >
       <v-row justify="center" v-if="dialog">
-        <v-col cols="8" class="pa-0 ma-0">
+        <v-col cols="12" md="8" class="pa-0 ma-0">
           <v-card class="pa-5">
             <v-card-title class="justify-center text-uppercase text-h5 py-2"
               >{{ dialogType == "add" ? "添加" : "更新" }}节点</v-card-title
             >
             <v-card-text>
               <v-row>
-                <v-col cols="6">
+                <v-col xs="12" md="6">
                   <v-text-field
                     label="节点名称"
                     v-model="nodeModel.call"

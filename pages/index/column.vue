@@ -1,5 +1,5 @@
 <template>
-  <v-container ref="container" fluid :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
+  <v-container ref="container" fluid :class="$xs?'px-0':'px-12'">
     <v-card class="px-6 pb-3" elevation="1">
       <v-toolbar flat >
         <v-card-title>栏目管理</v-card-title>
@@ -8,9 +8,10 @@
           class="mr-4"
           @click="dialog = true"
           :style="[theme.bg_p, theme.co]"
-          >+添加栏目</v-btn
+          :small="$xs?true:false"
+          >{{$xs?'+添加':'+添加栏目'}}</v-btn
         >
-        <v-btn :style="[theme.bg_p, theme.co]">更新排序</v-btn>
+        <v-btn :style="[theme.bg_p, theme.co]" :small="$xs?true:false">更新排序</v-btn>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -73,7 +74,7 @@
         <v-col md="6">
           <v-card-text>
             <v-row dense>
-              <v-col cols="4">
+              <v-col md="4" cols="6">
                 <v-text-field
                   label="*栏目名称"
                   v-model="columnModel.name"
@@ -82,14 +83,14 @@
                   @blur="$v.columnModel.name.$touch()"
                 ></v-text-field>
               </v-col>
-              <v-col cols="4"
+              <v-col md="4" cols="6"
                 ><v-text-field
                   label="*栏目英文名称"
                   v-model="columnModel.ename"
                   required
                 ></v-text-field
               ></v-col>
-              <v-col cols="4"
+              <v-col md="4" cols="6"
                 ><v-select
                   label="所属栏目"
                   :items="columnNodeList"
@@ -98,14 +99,14 @@
                   v-model="nodeModel.cid"
                 ></v-select
               ></v-col>
-              <v-col cols="4"
+              <v-col md="4" cols="6"
                 ><v-select
                   v-model="columnModel.html_template"
                   label="*选择HTML模板"
                   :items="htmlList"
                 ></v-select
               ></v-col>
-              <v-col cols="4"
+              <v-col md="4" cols="6"
                 ><v-select
                   v-model="nodeModel.path"
                   label="*选择VUE组件"
@@ -114,7 +115,7 @@
                   item-value="path"
                 ></v-select
               ></v-col>
-              <v-col cols="4" class="d-flex flex-row align-center">
+              <v-col md="4" cols="6" class="d-flex flex-row align-center">
                 <span>是否隐藏</span>
                 <v-radio-group row class="ml-10" v-model="columnModel.show">
                   <v-radio
@@ -131,14 +132,14 @@
                   ></v-radio>
                 </v-radio-group>
               </v-col>
-              <v-col cols="4"
+              <v-col md="4" cols="6"
                 ><v-text-field
                   label="链接地址"
                   v-model="columnModel.link"
                 ></v-text-field
               ></v-col>
               <!-- <v-col cols="4"><v-text-field label="排序" v-model="columnModel.order"></v-text-field></v-col>/ -->
-              <v-col cols="4"
+              <v-col md="4" cols="6"
                 ><v-text-field
                   label="关键词"
                   v-model="columnModel.keywords"
@@ -146,7 +147,7 @@
               ></v-col>
               <upload
                 v-model="imgFile"
-                type="auto"
+                type="card"
                 cols="12"
                 :src="columnModel.pic"
                 ref="upload"
@@ -459,12 +460,13 @@ export default {
     },
     columnNodeList() {
       let that = this;
-      if (that.columns.length < 1) return;
       let nodeList = [];
-      that.columns.forEach((i) => {
-        nodeList.push(i);
-      });
-      nodeList.unshift({ name: "顶级栏目", cid: "1", deep: "1", nid: "2" });
+      nodeList.unshift({ name: "顶级栏目", cid: "1", deep: "1", nid: "1" });
+      if (that.columns.length > 0) {
+        that.columns.forEach((i) => {
+          nodeList.push(i);
+        });
+      }
       nodeList.forEach((i) => {
         i.self = JSON.stringify(i);
       });

@@ -20,6 +20,7 @@ export default {
   }),
   created() {
     Vue.prototype.api = new this.Request(this);
+    Vue.prototype.$xs = this.$vuetify.breakpoint.xs;
   },
   async mounted() {
     // this.$vue._theme.primary = "#222";
@@ -126,11 +127,10 @@ html {
   }
 }
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: #fff;
 }
 .my-blue {
   background-color: #0094ff !important;
   color: #fff !important;
 }
 </style>
-

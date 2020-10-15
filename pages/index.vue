@@ -15,7 +15,7 @@
         class="logo_place"
         title="雪中控制台"
       >
-        <img src="logo.png" v-if="!menuState" class="logo" />
+        <img src="/logo.png" v-if="!menuState" class="logo" />
         <v-subheader
           class="justify-center text-uppercase"
           width="100%"
