@@ -27,7 +27,7 @@ const Toast = (options = {}) => {
     el: document.createElement('div'),
     data: opts,
   })
-  const parent = document.querySelector('#app')
+  let parent = document.querySelector('#app')?document.querySelector('#app'):document.querySelector('#__nuxt');
   parent.appendChild(instance.$el);
   Vue.nextTick(() => {
     instance.bool = true

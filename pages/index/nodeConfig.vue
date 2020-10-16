@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
+  <v-container fluid :class="$vuetify.breakpoint.xs?'container':'px-12'">
     <v-subheader>节点设置</v-subheader>
     <v-card class="px-6">
       <v-toolbar flat>

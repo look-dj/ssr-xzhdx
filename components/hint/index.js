@@ -29,7 +29,7 @@ const Hint = (options = {}) => {
     vuetify: new vuetify(),
     data: opts,
   });
-  let parent = document.querySelector("#app");
+  let parent = document.querySelector('#app')?document.querySelector('#app'):document.querySelector('#__nuxt');
   parent.appendChild(instance.$el);
   Vue.nextTick(() => {
     instance.bool = true;

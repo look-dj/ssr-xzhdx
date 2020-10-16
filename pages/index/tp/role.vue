@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="v-container" :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
+  <v-container fluid class="v-container" :class="$vuetify.breakpoint.xs?'container':'px-12'">
     <v-subheader>角色管理</v-subheader>
     <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>

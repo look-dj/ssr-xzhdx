@@ -25,8 +25,9 @@ let loading = (options = {}) => {
 		el: document.createElement('div'),
 		data: opts,
 		vuetify: new vuetify()
-	})
-	let parent = document.querySelector('#app')
+  })
+  
+	let parent = document.querySelector('#app')?document.querySelector('#app'):document.querySelector('#__nuxt');
 
 	parent.appendChild(instance.$el)
 	Vue.nextTick(() => {

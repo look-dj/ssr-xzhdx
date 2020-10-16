@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="px-12">
+  <v-container fluid :class="$vuetify.breakpoint.xs?'container':'px-12'">
     <v-card flat color="transparent">
       <v-card-title>其他dd设置</v-card-title>
       <v-card-text>

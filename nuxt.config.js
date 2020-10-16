@@ -113,6 +113,7 @@ export default {
    */
   build: {
     vendor: ["vuelidate", "js-md5"],
+    analyze: true,
     extractCSS: true,
     filenames: {
       app: ({ isDev }) => (isDev ? '[name].js' : 'js/[name].min.js'),

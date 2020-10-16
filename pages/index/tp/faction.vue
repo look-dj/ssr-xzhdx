@@ -1,11 +1,11 @@
 <template>
-  <v-container fluid :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
+  <v-container fluid :class="$vuetify.breakpoint.xs?'container':'px-12'">
     <v-subheader>势力划分</v-subheader>
     <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
       <v-btn small class="mx-2" text v-for="(item,idx) in sonColumn" :key="idx">{{item.name}}</v-btn>
     </v-subheader> -->
-    <v-card class="px-6">
+    <v-card class="px-6"> 
       <v-toolbar flat>
         <v-btn text @click="dialog = true" :style="[theme.bg_p, theme.co]" :small="$vuetify.breakpoint.xs?true:false"
           >{{$vuetify.breakpoint.xs?'+添加':'+添加新势力'}}</v-btn

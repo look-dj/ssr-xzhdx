@@ -7,7 +7,8 @@
     "dev": "cross-env NODE_ENV=development nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "a": "nuxt build --analyze"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.5",
@@ -22,7 +23,8 @@
     "js-md5": "^0.7.3",
     "nuxt": "^2.14.0",
     "vue-froala-wysiwyg": "^3.2.2",
-    "vuelidate": "^0.7.5"
+    "vuelidate": "^0.7.5",
+    "webpack-bundle-analyzer": "^3.9.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2"

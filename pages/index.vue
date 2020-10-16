@@ -15,7 +15,7 @@
         class="logo_place"
         title="雪中控制台"
       >
-        <img src="/logo.png" v-if="!menuState" class="logo" />
+        <img src="/logo.png" v-if="!menuState" class="logo" height="100%" />
         <v-subheader
           class="justify-center text-uppercase"
           width="100%"
@@ -85,7 +85,13 @@
       <v-btn depressed @click="commDrawer()" :style="[theme.bg_p, theme.co]">
         <v-icon>iconfont-goodsppecategory</v-icon>
       </v-btn>
-      <v-btn text class="ml-3" :style="[theme.bg_p, theme.co]" @click="goToFrame">浏览首页</v-btn>
+      <v-btn
+        text
+        class="ml-3"
+        :style="[theme.bg_p, theme.co]"
+        @click="goToFrame"
+        >浏览首页</v-btn
+      >
       <v-spacer></v-spacer>
       <v-btn
         depressed
@@ -116,12 +122,17 @@
     <v-main class="v-main">
       <span v-if="temp_temp"></span>
       <v-row align="stretch" class="main_row">
-        <v-col :cols="viewCols" class="view_col pa-0" >
+        <v-col :cols="viewCols" class="view_col pa-0">
           <transition name="slide">
             <nuxt-child :key="viewKey"></nuxt-child>
           </transition>
         </v-col>
-        <v-col v-if="sideType!==''" :cols="sideCols" class="side_col ma-0" :class="$vuetify.breakpoint.xs?'side_col_xs':''">
+        <v-col
+          v-if="sideType !== ''"
+          :cols="sideCols"
+          class="side_col ma-0"
+          :class="$vuetify.breakpoint.xs ? 'side_col_xs' : ''"
+        >
           <the-side :type="sideType" @close="closeSide"></the-side>
         </v-col>
       </v-row>
@@ -153,6 +164,7 @@ export default {
     if (!token) {
       app.$cookies.removeAll();
       redirect("/login");
+      return;
     }
     let resultUser = await app.api.getUserByToken();
     store.commit("setUser", resultUser.data);
@@ -170,7 +182,7 @@ export default {
     let drawer_content = document.querySelector(
       ".v-navigation-drawer__content"
     );
-    if(that.$vuetify.breakpoint.xs){
+    if (that.$vuetify.breakpoint.xs) {
       document.querySelector(".v-main__wrap").style.position = "static";
     }
     drawer_content.classList.add("drawer"); //chrome
@@ -178,7 +190,7 @@ export default {
     drawer_content.style.msOverflowStyle = "none"; //edge
   },
   methods: {
-    goToFrame(){
+    goToFrame() {
       window.location.href = window.location.origin;
       // console.log(location.origin)
     },
@@ -213,7 +225,7 @@ export default {
         window.location.href.length - 1
       );
       that.$nextTick(() => {
-        if(!that.$vuetify.breakpoint.xs){
+        if (!that.$vuetify.breakpoint.xs) {
           that.sideCols = 0;
           that.viewCols = 12;
           if (lastHerf === "/") {
@@ -229,9 +241,9 @@ export default {
         window.location.href.length - 1
       );
       that.$nextTick(() => {
-        if(!that.$vuetify.breakpoint.xs){
-        that.sideCols = 3;
-        that.viewCols = 9;
+        if (!that.$vuetify.breakpoint.xs) {
+          that.sideCols = 3;
+          that.viewCols = 9;
           if (lastHerf === "/") {
             that.viewKey++;
           }
@@ -243,12 +255,12 @@ export default {
       let that = this;
       that.$toast({ msg: "确认要退出吗？" });
       that.$bus.$on("toastConfirm", function () {
-        let _loading = that.$loading({msg: '退出'});
+        let _loading = that.$loading({ msg: "退出" });
         that.$cookies.removeAll();
         localStorage.clear();
         that.$hint({ msg: "已完成退出", type: "error" });
         setTimeout(() => {
-          that.$router.push({path: "/login"});
+          that.$router.push({ path: "/login" });
           _loading.close();
         }, 500);
       });
@@ -288,6 +300,9 @@ export default {
 .logo_place {
   cursor: pointer;
   & > img {
+    height: 100%;
+    display: block;
+    margin: 0 auto;
     transition: all 0.3s;
   }
   &:hover {
@@ -306,7 +321,7 @@ export default {
     }
   }
 }
-.v-navigation-drawer__border{
+.v-navigation-drawer__border {
   display: none !important;
 }
 </style>
@@ -315,10 +330,14 @@ export default {
   position: relative;
   width: 100%;
 }
-.logo {
-  height: 100%;
-  display: block;
-  margin: 0 auto;
+.logo_place {
+  cursor: pointer;
+  & > img {
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+    transition: all 0.3s;
+  }
 }
 .v-main {
   height: calc(100vh - 48px);
@@ -328,24 +347,25 @@ export default {
   padding-top: 0 !important;
   position: relative;
 }
-.main_row{
+.main_row {
   height: 100%;
   margin-left: 8px;
 }
-.side_col  {
+.side_col {
   position: relative;
 }
-.side_col_xs{
+.side_col_xs {
   position: absolute !important;
   top: 0;
   right: 0;
   height: 100%;
   width: 70%;
 }
-.view_col  {
+.view_col {
   padding-left: 8px;
   height: calc(100vh - 48px);
   overflow: scroll;
+  background-color: #f4f6f9;
 }
 .f12 {
   font-size: 12px;

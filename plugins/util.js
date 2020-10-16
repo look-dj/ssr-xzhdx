@@ -2,7 +2,6 @@ import Vue from "vue";
 import hint from '~/components/hint/index.js';
 import toast from '~/components/toast/index.js';
 import loading from '~/components/loading/index.js'
-import md5 from "js-md5";
 import vuelidate from "vuelidate";
 let obj = {
   checkObjectIsEmpty: function(obj) {
@@ -82,5 +81,4 @@ Vue.prototype.$toast = toast;
 Vue.prototype.$loading = loading;
 Vue.prototype.$bus = new Vue();
 Vue.prototype.$u = obj;
-Vue.prototype.$md5 = md5;
 Vue.use(vuelidate);

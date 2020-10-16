@@ -141,7 +141,7 @@ class Request {
     this.axios.setHeader(head.name, head.header);
     let token = this.cookies.get("token");
     let inWhiteList = s => whiteList.some(w => w === s);
-    if (!inWhiteList(url)) {
+    if (token && !inWhiteList(url)) {
       this.axios.setHeader("Authorization", "auth " + token);
     }
     return new Promise((resolve, reject) => {

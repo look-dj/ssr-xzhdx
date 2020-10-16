@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="px-12 container">
+  <v-container fluid class="container" :class="$vuetify.breakpoint.xs?'container':'px-12'">
     <h1 class="text-center head">欢迎进入雪中控制台</h1>
     <v-row>
       <v-col cols="12" md="3">

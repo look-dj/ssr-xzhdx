@@ -76,6 +76,7 @@
 </template>
 <script>
 import { required } from "vuelidate/lib/validators";
+import md5 from "js-md5";
 export default {
   name: "login",
   validations: {
@@ -134,7 +135,7 @@ export default {
         return;
       }
       let _loading = that.$loading({ msg: "登录" });
-      that.userModel.pass = that.$md5(that.userModel.password);
+      that.userModel.pass = md5(that.userModel.password);
       delete that.userModel.password;
       try {
         let result = await that.api.login(that.userModel, that);

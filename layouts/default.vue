@@ -1,9 +1,9 @@
 <template>
-  <v-app>
-    <div class="temp00090" v-if="isRouterAlive">
-      <nuxt />
-    </div>
-  </v-app>
+  <div id="appbox">
+    <v-app>
+       <nuxt />
+    </v-app>
+  </div>
 </template>
 
 
@@ -87,6 +87,11 @@ export default {
 </script>
 
 <style lang="scss">
+.container{
+  padding: 0;
+  padding-right: 12px;
+  padding-top: 20px;
+}
 * {
   margin: 0;
   padding: 0;

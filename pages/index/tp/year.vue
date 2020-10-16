@@ -1,5 +1,5 @@
 <template>
-  <v-container fiuld :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
+  <v-container fiuld :class="$vuetify.breakpoint.xs?'container':'px-12'">
     <v-subheader>时间线</v-subheader>
     <!-- <v-subheader>
       <span>子栏目:</span>
