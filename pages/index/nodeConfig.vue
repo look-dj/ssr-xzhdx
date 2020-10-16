@@ -382,4 +382,5 @@ export default {
 .v-dialog {
   box-shadow: none !important;
 }
+.container{padding:0;padding-right:12px;padding-top:20px}
 </style>

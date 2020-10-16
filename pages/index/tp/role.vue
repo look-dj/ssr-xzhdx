@@ -65,7 +65,7 @@
           <v-card-text>
             <v-row>
               <upload
-                type="card"
+                :type="$vuetify.breakpoint.xs?'card':'auto'"
                 v-model="imgFile"
                 :cols="$vuetify.breakpoint.xs?'12':'6'"
                 :src="roleModel.avatar"
@@ -291,4 +291,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.container{padding:0;padding-right:12px;padding-top:20px}
 </style>

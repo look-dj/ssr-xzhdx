@@ -113,25 +113,13 @@ export default {
    */
   build: {
     vendor: ["vuelidate", "js-md5"],
-    analyze: true,
-    extractCSS: true,
+    analyze: false,
+    extractCSS: false,
     filenames: {
       app: ({ isDev }) => (isDev ? '[name].js' : 'js/[name].min.js'),
       css: ({ isDev }) => (isDev ? '[name].css' : 'css/[name].min.css'),
       chunk: ({ isDev }) => (isDev ? '[name].js' : 'js/[name].min.js'),
       img: ({ isDev }) => (isDev ? '[path][name].[ext]' : 'img/[name].[ext]')
-    },
-    postcss: {
-      plugins: {
-        autoprefixer: {
-          overrideBrowserslist: [
-            'last 2 version',
-            'Android >= 4.0',
-            'iOS >= 8',
-            'ie >= 8'
-          ]
-        }
-      }
     },
   },
   env: {

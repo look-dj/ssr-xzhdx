@@ -49,7 +49,7 @@
           <v-card-text>
             <v-row>
               <upload
-                type="auto"
+                :type="$vuetify.breakpoint.xs?'card':'auto'"
                 cols="6"
                 v-model="imgFile"
                 :src="realmModel.pic"
@@ -244,5 +244,6 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.container{padding:0;padding-right:12px;padding-top:20px}
 </style>

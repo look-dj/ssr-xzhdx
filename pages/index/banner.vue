@@ -61,7 +61,7 @@
                 <v-col cols="6">
                   <v-text-field label="排序" v-model="bannerModel.order"></v-text-field>
                 </v-col>
-                <upload type="auto" :src="bannerModel.pic" v-model="imgFile" cols="6"></upload>
+                <upload :type="$vuetify.breakpoint.xs?'card':'auto'" :src="bannerModel.pic" v-model="imgFile" cols="6"></upload>
               </v-row>
             </v-card-text>
             <v-card-actions class="justify-center">
@@ -273,4 +273,5 @@ export default {
 .v-dialog {
   box-shadow: none !important;
 }
+.container{padding:0;padding-right:12px;padding-top:20px}
 </style>

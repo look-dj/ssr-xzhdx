@@ -147,7 +147,7 @@
               ></v-col>
               <upload
                 v-model="imgFile"
-                type="card"
+                :type="$vuetify.breakpoint.xs?'card':'auto'"
                 cols="12"
                 :src="columnModel.pic"
                 ref="upload"
@@ -482,4 +482,5 @@ export default {
 tbody > tr {
   cursor: pointer;
 }
+.container{padding:0;padding-right:12px;padding-top:20px}
 </style>

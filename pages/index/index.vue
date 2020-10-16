@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="container" :class="$vuetify.breakpoint.xs?'container':'px-12'">
+  <v-container fluid :class="$vuetify.breakpoint.xs?'container':'px-12'">
     <h1 class="text-center head">欢迎进入雪中控制台</h1>
     <v-row>
       <v-col cols="12" md="3">
@@ -217,6 +217,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.container{padding:0;padding-right:12px;padding-top:20px}
 #chart1，#chart2,
 #chart3 {
   background-color: #fff;

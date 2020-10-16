@@ -49,7 +49,7 @@
           <v-card-text>
             <v-row>
               <upload
-                type="auto"
+                :type="$vuetify.breakpoint.xs?'card':'auto'"
                 cols="12"
                 v-model="imgFile"
                 :src="factionModel.pic"
@@ -263,5 +263,6 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.container{padding:0;padding-right:12px;padding-top:20px}
 </style>
