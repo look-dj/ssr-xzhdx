@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid :class="$xs?'px-0':'px-12'">
+  <v-container fluid :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
     <v-subheader>首页轮播</v-subheader>
     <v-card class="px-6">
       <v-toolbar flat>
-        <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]" :small="$xs?true:false" class="mr-2">+添加</v-btn>
-        <v-btn text :style="[theme.bg_p,theme.co]" :small="$xs?true:false">更新</v-btn>
+        <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]" :small="$vuetify.breakpoint.xs?true:false" class="mr-2">+添加</v-btn>
+        <v-btn text :style="[theme.bg_p,theme.co]" :small="$vuetify.breakpoint.xs?true:false">更新</v-btn>
       </v-toolbar>
       <v-data-table align="center" :headers="headers" disable-sort :items="items">
         <template v-slot:item.cid="{item}">{{columnObj[item.cid]}}</template>

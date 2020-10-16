@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :class="$xs?'px-0':'px-12'">
+  <v-container fluid :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
     <v-subheader>节点设置</v-subheader>
     <v-card class="px-6">
       <v-toolbar flat>
@@ -7,10 +7,10 @@
           text
           @click="dialog = true"
           :style="[theme.bg_p, theme.co]"
-          class="mr-2" :small="$xs?true:false"
+          class="mr-2" :small="$vuetify.breakpoint.xs?true:false"
           >+添加</v-btn
         >
-        <v-btn text :style="[theme.bg_p, theme.co]" :small="$xs?true:false">更新</v-btn>
+        <v-btn text :style="[theme.bg_p, theme.co]" :small="$vuetify.breakpoint.xs?true:false">更新</v-btn>
       </v-toolbar>
       <v-data-table
         align="center"
@@ -47,7 +47,7 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-dialog v-model="dialog" persistent class="v-dialog" :fullscreen="$xs?true:false" >
+    <v-dialog v-model="dialog" persistent class="v-dialog" :fullscreen="$vuetify.breakpoint.xs?true:false" >
       <v-row justify="center" v-if="dialog">
         <v-col cols="12" md="8" class="pa-0 ma-0">
           <v-card class="pa-5">

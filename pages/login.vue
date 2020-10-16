@@ -13,7 +13,7 @@
     </v-sheet>
     <v-sheet
       color="#f3f7f9"
-      style="position: relative; z-index: 9"
+      style="position: relative; z-index: 9;"
       height="calc(100vh - 70px)"
     >
       <v-sheet class="d-flex justify-center login_sheet" color="#eee">

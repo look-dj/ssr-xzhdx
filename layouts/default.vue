@@ -1,6 +1,8 @@
 <template>
-  <v-app v-if="isRouterAlive">
-    <nuxt />
+  <v-app>
+    <div class="temp00090" v-if="isRouterAlive">
+      <nuxt />
+    </div>
   </v-app>
 </template>
 
@@ -42,7 +44,7 @@ export default {
     // 拿到window窗口地址
     let nid = that.$route.query.nid;
     nid = nid ? nid : 1;
-    that.$store.commit('setMid', nid);
+    that.$store.commit("setMid", nid);
     // TODO 后期在处理路由nid加密的时候需要在这里经行解密
   },
   watch: {

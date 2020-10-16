@@ -1,5 +1,5 @@
 <template>
-  <v-container ref="container" fluid :class="$xs?'px-0':'px-12'">
+  <v-container ref="container" fluid :class="$vuetify.breakpoint.xs?'px-0':'px-12'">
     <v-card class="px-6 pb-3" elevation="1">
       <v-toolbar flat >
         <v-card-title>栏目管理</v-card-title>
@@ -8,10 +8,10 @@
           class="mr-4"
           @click="dialog = true"
           :style="[theme.bg_p, theme.co]"
-          :small="$xs?true:false"
-          >{{$xs?'+添加':'+添加栏目'}}</v-btn
+          :small="$vuetify.breakpoint.xs?true:false"
+          >{{$vuetify.breakpoint.xs?'+添加':'+添加栏目'}}</v-btn
         >
-        <v-btn :style="[theme.bg_p, theme.co]" :small="$xs?true:false">更新排序</v-btn>
+        <v-btn :style="[theme.bg_p, theme.co]" :small="$vuetify.breakpoint.xs?true:false">更新排序</v-btn>
       </v-toolbar>
       <v-data-table
         :headers="headers"
