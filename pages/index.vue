@@ -178,10 +178,10 @@ export default {
     //人物 势力 关于雪中
     //主页 境界划分
     // :style="`{backgroundColor:${_theme.primary}}`"
-    console.log(that.menu);
     let drawer_content = document.querySelector(
       ".v-navigation-drawer__content"
     );
+    document.querySelector('.v-navigation-drawer__border').style.display = "none";
     if (that.$vuetify.breakpoint.xs) {
       document.querySelector(".v-main__wrap").style.position = "static";
     }
@@ -365,6 +365,7 @@ export default {
   padding-left: 8px;
   height: calc(100vh - 48px);
   overflow: scroll;
+  overflow-x: hidden;
   background-color: #f4f6f9;
 }
 .f12 {

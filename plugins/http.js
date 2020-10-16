@@ -19,48 +19,48 @@ class Request {
 
   //登录
   login(data = {}, obj = {}) {
-    return this.fetch("/panel/login", data, obj);
+    return this.fetch("/login", data, obj);
   }
   //读取站点设置
   siteGet(data = {}, obj = {}) {
-    return this.fetch("/panel/site/read", data, obj);
+    return this.fetch("/site/read", data, obj);
   }
   //修改站点设置
   siteUpdate(data, obj = {}) {
-    return this.fetch("/panel/site/update", data, obj);
+    return this.fetch("/site/update", data, obj);
   }
   aboutGet(data = {}, obj = {}) {
-    return this.fetch("/panel/site/read", data, obj);
+    return this.fetch("/site/read", data, obj);
   }
   //修改站点设置
   aboutUpdate(data, obj = {}) {
-    return this.fetch("/panel/site/update", data, obj);
+    return this.fetch("/site/update", data, obj);
   }
   //查询所有的html
   getHtmlList(data, obj = {}) {
-    return this.fetch("/panel/file/getHtmlList", data, obj);
+    return this.fetch("/file/getHtmlList", data, obj);
   }
   fetchRouter(data, obj = {}) {
     // console.log(data);
-    return this.fetch("/panel/node/getRouter", data, obj);
+    return this.fetch("/node/getRouter", data, obj);
   }
   fetchMenu(data, obj = {}) {
-    return this.fetch("/panel/node/getMenu", data, obj);
+    return this.fetch("/node/getMenu", data, obj);
   }
   getUserInfo(data, obj = {}) {
-    return this.fetch("/panel/user/getInfo", data, obj);
+    return this.fetch("/user/getInfo", data, obj);
   }
   getAllColumnCount(data = {}, obj = {}) {
-    return this.fetch("/panel/column/columnCount", data, obj);
+    return this.fetch("/column/columnCount", data, obj);
   }
   readPageByNid(data, obj = {}) {
-    return this.fetch("/panel/page/byNid", data, obj);
+    return this.fetch("/page/byNid", data, obj);
   }
   getUserByToken(data = {}, obj = {}) {
-    return this.fetch("/panel/getUserByToken", data, obj, "get");
+    return this.fetch("/getUserByToken", data, obj, "get");
   }
   getNodeById(data = {}, obj = {}) {
-    return this.fetch("/panel/node/read", data, obj);
+    return this.fetch("/node/read", data, obj);
   }
   async upload(data, obj = {}, deletePath = "") {
     let that = this;
@@ -68,18 +68,18 @@ class Request {
     fm.append("file", data);
     try {
       that.axios.setHeader("Content-Type", "multipart/form-data");
-      let result = await that.axios.put("/file/upload/serve", fm);
+      let result = await that.axios.post(
+        "http://localhost:9018/upload/image",
+        fm
+      );
       console.log(result);
       if (result.data.code == 200) {
         if (deletePath.length > 0) {
           try {
-            let result0 = await that.deleteFile({
-              path: deletePath
-            });
-            // obj.$hint({
-            //   msg: result0.msg,
-            //   type: "error",
-            // });
+            let result0 = await that.axios.post(
+              "http://localhost:9018/delete/image",
+              { name: deletePath }
+            );
           } catch (e) {
             console.error(e, "删除" + deletePath + "失败");
           }
@@ -94,20 +94,17 @@ class Request {
       return false;
     }
   }
-  //删除上传的文件
-  async deleteFile(data, obj = {}) {
+  async deleteFile(name) {
     try {
-      let result = await this.fetch("/file/delete", data, obj);
+      let result = await that.axios.post("http://localhost:9018/delete/image", { name });
       return result;
     } catch (e) {
-      console.log(e);
-      return false;
+      console.error(e, "删除" + deletePath + "失败");
     }
   }
-
   plant(url) {
     let that = this;
-    url = "panel/" + url;
+    // url = "panel/" + url;
     return {
       queryAll(data = {}, obj = {}) {
         return that.fetch(url + "/queryAll", data, obj);

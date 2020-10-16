@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :class="$vuetify.breakpoint.xs?'container':'px-12'">
+  <v-container fluid :class="$vuetify.breakpoint.xs ? 'container' : 'px-12'">
     <v-subheader>境界介绍</v-subheader>
     <!-- <v-subheader v-if="sonColumn.length>0">
       <span>子栏目:</span>
@@ -7,11 +7,20 @@
     </v-subheader> -->
     <v-card class="px-6">
       <v-toolbar flat>
-        <v-btn text @click="dialog = true" :style="[theme.bg_p, theme.co]" :small="$vuetify.breakpoint.xs?true:false"
-          >{{$vuetify.breakpoint.xs?'+添加':'+添加新境界'}}</v-btn
+        <v-btn
+          text
+          @click="dialog = true"
+          :style="[theme.bg_p, theme.co]"
+          :small="$vuetify.breakpoint.xs ? true : false"
+          >{{ $vuetify.breakpoint.xs ? "+添加" : "+添加新境界" }}</v-btn
         >
         <v-spacer></v-spacer>
-        <v-btn text :style="[theme.bg_p, theme.co]" :small="$vuetify.breakpoint.xs?true:false">搜索</v-btn>
+        <v-btn
+          text
+          :style="[theme.bg_p, theme.co]"
+          :small="$vuetify.breakpoint.xs ? true : false"
+          >搜索</v-btn
+        >
       </v-toolbar>
       <v-data-table disable-sort :items="items" :headers="headers">
         <template v-slot:item.oper="{ item }">
@@ -21,7 +30,7 @@
             depressed
             title="删除"
             class="mx-1"
-            @click="realmDelete(item.id)"
+            @click="realmDelete(item)"
             :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-customerarchivesrecycleBin</v-icon>
@@ -49,7 +58,7 @@
           <v-card-text>
             <v-row>
               <upload
-                :type="$vuetify.breakpoint.xs?'card':'auto'"
+                :type="$vuetify.breakpoint.xs ? 'card' : 'auto'"
                 cols="6"
                 v-model="imgFile"
                 :src="realmModel.pic"
@@ -162,10 +171,11 @@ export default {
       if (that.$u.checkObjectIsEmpty(that.imgFile))
         return that.$hint({ msg: "请选择上传的图片", type: "error" });
       try {
-        let result0 = await that.api.upload(that.imgFile, that);
+        let imgResult = await that.api.upload(that.imgFile, that);
+        if (imgResult.code !== 200)
+          return that.$hint({ msg: "上传图片失败", type: "error" });
+        that.realmModel.pic = imgResult.path;
         that.realmModel.start = new Date().valueOf();
-        that.realmModel.pic = result0.code === 200 ? result0.data : "";
-        if (!result0) return that.$hint({ msg: "上传图片失败", type: "error" });
         let result = await that.crud.add(that.realmModel, that);
         that.$hint({ msg: result.msg });
         that.realmModelReset();
@@ -176,13 +186,13 @@ export default {
     async realmUpdate() {
       let that = this;
       if (!that.$u.checkObjectIsEmpty(that.imgFile)) {
-        let res = await that.api.upload(
-          that.imgFile,
-          that,
-          that.realmModel.pic
-        );
-        that.realmModel.pic = res.code === 200 ? res.data : "";
-        if (!res) return that.$hint({ msg: "上传图片失败", type: "error" });
+        let pic_params = that.$store.state.updateDeleteFile
+          ? that.realmModel.pic
+          : "";
+        let imgResult = await that.api.upload(that.imgFile, that, pic_params);
+        if (imgResult.code != 200)
+          return that.$hint({ msg: "上传图片失败", type: "error" });
+        that.realmModel.pic = imgResult.path;
       }
       that.realmModel.date = new Date().valueOf();
       try {
@@ -212,18 +222,17 @@ export default {
         that.dialog = true;
       }
     },
-    async realmDelete(id) {
+    async realmDelete(params) {
       let that = this;
       that.$toast({ msg: "确定要删除这方境界吗？" });
       that.$bus.$on("toastConfirm", async function () {
-        let result = await that.realmRead(id);
-        if (result.pic) {
-          let result0 = await that.api.deleteFile({ path: result.pic }, that);
-        }
         try {
-          let result1 = await that.crud.delete({ id }, that);
+          let result1 = await that.crud.delete({ id: params.id }, that);
           that.$hint({ msg: "删除成功" });
           that.realmQueryAll();
+          if (params.pic.length > 0 && that.$store.state.updateDeleteFile) {
+            await that.api.deleteFile(result.pic);
+          }
         } catch (e) {
           console.log(e);
         }
@@ -245,5 +254,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.container{padding:0;padding-right:12px;padding-top:20px}
+.container {
+  padding: 0;
+  padding-right: 12px;
+  padding-top: 20px;
+}
 </style>

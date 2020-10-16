@@ -1,22 +1,41 @@
 <template>
-  <v-container fluid :class="$vuetify.breakpoint.xs?'container':'px-12'">
+  <v-container fluid :class="$vuetify.breakpoint.xs ? 'container' : 'px-12'">
     <v-subheader>首页轮播</v-subheader>
     <v-card class="px-6">
       <v-toolbar flat>
-        <v-btn text @click="dialog=true;" :style="[theme.bg_p,theme.co]" :small="$vuetify.breakpoint.xs?true:false" class="mr-2">+添加</v-btn>
-        <v-btn text :style="[theme.bg_p,theme.co]" :small="$vuetify.breakpoint.xs?true:false">更新</v-btn>
+        <v-btn
+          text
+          @click="dialog = true"
+          :style="[theme.bg_p, theme.co]"
+          :small="$vuetify.breakpoint.xs ? true : false"
+          class="mr-2"
+          >+添加</v-btn
+        >
+        <v-btn
+          text
+          :style="[theme.bg_p, theme.co]"
+          :small="$vuetify.breakpoint.xs ? true : false"
+          >更新</v-btn
+        >
       </v-toolbar>
-      <v-data-table align="center" :headers="headers" disable-sort :items="items">
-        <template v-slot:item.cid="{item}">{{columnObj[item.cid]}}</template>
-        <template v-slot:item.oper="{item}">
+      <v-data-table
+        align="center"
+        :headers="headers"
+        disable-sort
+        :items="items"
+      >
+        <template v-slot:item.cid="{ item }">{{
+          columnObj[item.cid]
+        }}</template>
+        <template v-slot:item.oper="{ item }">
           <v-btn
             fab
             x-small
             depressed
             title="删除"
             class="mx-1"
-            @click="bannerDelete(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            @click="bannerDelete(item)"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-customerarchivesrecycleBin</v-icon>
           </v-btn>
@@ -27,7 +46,7 @@
             title="修改"
             class="mx-1"
             @click="editBanner(item.id)"
-            :style="[theme.bg_a,theme.co_p]"
+            :style="[theme.bg_a, theme.co_p]"
           >
             <v-icon>iconfont iconfont-basepermissionapproveApply</v-icon>
           </v-btn>
@@ -38,13 +57,16 @@
       <v-row justify="center" v-if="dialog">
         <v-col cols="6" class="pa-0 ma-0">
           <v-card class="pa-5">
-            <v-card-title
-              class="justify-center text-uppercase text-h5"
-            >{{dialogType=='add'?'添加':'更新'}}banner</v-card-title>
+            <v-card-title class="justify-center text-uppercase text-h5"
+              >{{ dialogType == "add" ? "添加" : "更新" }}banner</v-card-title
+            >
             <v-card-text>
               <v-row>
                 <v-col cols="6">
-                  <v-text-field label="标题" v-model="bannerModel.title"></v-text-field>
+                  <v-text-field
+                    label="标题"
+                    v-model="bannerModel.title"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="6">
                   <v-select
@@ -56,12 +78,23 @@
                   ></v-select>
                 </v-col>
                 <v-col cols="6">
-                  <v-text-field label="跳转网址" v-model="bannerModel.url"></v-text-field>
+                  <v-text-field
+                    label="跳转网址"
+                    v-model="bannerModel.url"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="6">
-                  <v-text-field label="排序" v-model="bannerModel.order"></v-text-field>
+                  <v-text-field
+                    label="排序"
+                    v-model="bannerModel.order"
+                  ></v-text-field>
                 </v-col>
-                <upload :type="$vuetify.breakpoint.xs?'card':'auto'" :src="bannerModel.pic" v-model="imgFile" cols="6"></upload>
+                <upload
+                  :type="$vuetify.breakpoint.xs ? 'card' : 'auto'"
+                  :src="bannerModel.pic"
+                  v-model="imgFile"
+                  cols="6"
+                ></upload>
               </v-row>
             </v-card-text>
             <v-card-actions class="justify-center">
@@ -69,14 +102,16 @@
                 width="120"
                 class="mx-2"
                 @click="submit(dialogType)"
-                :style="[theme.bg_p,theme.co]"
-              >{{dialogType=='add'?'提交':'更新BANNER'}}</v-btn>
+                :style="[theme.bg_p, theme.co]"
+                >{{ dialogType == "add" ? "提交" : "更新BANNER" }}</v-btn
+              >
               <v-btn
                 width="120"
                 class="mx-2"
                 @click="bannerModelReset(1)"
-                :style="[theme.bg_p,theme.co]"
-              >关闭</v-btn>
+                :style="[theme.bg_p, theme.co]"
+                >关闭</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -108,21 +143,21 @@ export default {
     },
     columns: [],
     imgFile: {},
-    columnObj: {}
+    columnObj: {},
   }),
   async mounted() {
     let that = this;
     that.getColumn();
     that.bannerQueryAll();
   },
-  async asyncData({app, query}){
-    let res = await app.api.getNodeById({id: query.nid});
-    return {documentTitle: res.data.title}
+  async asyncData({ app, query }) {
+    let res = await app.api.getNodeById({ id: query.nid });
+    return { documentTitle: res.data.title };
   },
-  head(){
+  head() {
     return {
-      title: this.documentTitle
-    }
+      title: this.documentTitle,
+    };
   },
   methods: {
     bannerModelReset(type = null) {
@@ -148,7 +183,7 @@ export default {
       let res = await upload(that.imgFile, that);
       if (res.code !== 200)
         return that.$hint({ msg: "上传图片失败", type: "error" });
-      that.bannerModel.pic = res.data;
+      that.bannerModel.pic = res.path;
       that.bannerModel.date = new Date().valueOf();
       try {
         let result = await that.crud.add(that.bannerModel, that);
@@ -179,14 +214,13 @@ export default {
     async bannerUpdate() {
       let that = this;
       if (!that.$u.checkObjectIsEmpty(that.imgFile)) {
-        let result = await that.api.upload(
-          that.imgFile,
-          that,
-          that.bannerModel.pic
-        );
-        that.bannerModel.pic =
-          result.code === 200 ? result.data : that.bannerModel.pic;
-        if (!result) return that.$hint({ msg: "上传图片失败", type: "error" });
+        let pic_params = that.$store.state.updateDeleteFile
+          ? that.bannerModel.pic
+          : "";
+        let imgResult = await that.api.upload(that.imgFile, that, pic_params);
+        if (imgResult.code !== 200)
+          return that.$hint({ msg: "上传图片失败", type: "error" });
+        that.bannerModel.pic = imgResult.path;
       }
       that.bannerModel.date = new Date().valueOf();
       try {
@@ -207,21 +241,15 @@ export default {
         console.log(e);
       }
     },
-    async bannerDelete(id) {
+    async bannerDelete(params) {
       let that = this;
       that.$toast({ msg: "确认删除吗？" });
       that.$bus.$on("toastConfirm", async function () {
-        if (that.bannerModel.pic.length > 0) {
-          try {
-            let result = await that.api.deleteFile({
-              path: that.bannerModel.pic,
-            });
-          } catch (e) {
-            console.error(e);
-          }
-        }
         try {
-          let result = await that.crud.delete({ id });
+          let result = await that.crud.delete({ id: params.id });
+          if (params.pic.length > 0 && that.$store.state.updateDeleteFile) {
+            that.api.deleteFile(params.pic);
+          }
           that.$hint({
             msg: result.msg,
             type: result.code === 200 ? "success" : "error",
@@ -239,7 +267,7 @@ export default {
         let result = await that.columnCrud.queryAll();
         that.columns = result.code === 200 ? result.data : [];
         let temp = {};
-        that.columns.forEach(c => {
+        that.columns.forEach((c) => {
           temp[c.id] = c.name;
         });
         that.columnObj = temp;
@@ -273,5 +301,9 @@ export default {
 .v-dialog {
   box-shadow: none !important;
 }
-.container{padding:0;padding-right:12px;padding-top:20px}
+.container {
+  padding: 0;
+  padding-right: 12px;
+  padding-top: 20px;
+}
 </style>

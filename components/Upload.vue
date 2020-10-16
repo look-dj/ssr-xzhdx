@@ -9,7 +9,7 @@
     >
       <span :style="theme.co_p">请选择图片</span>
     </v-sheet>
-    <v-sheet class="ml-2">
+    <v-sheet class="ml-2" height="148">
       <img
         :src="path"
         :style="`width:${imgSize.w};height:${imgSize.h};`"

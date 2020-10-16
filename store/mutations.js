@@ -20,4 +20,7 @@ export default {
   setUser(state, user){
     state.user = user;
   },
+  setUpdateDeleteFile(state, bool){
+    state.updateDeleteFile = bool;
+  }
 };

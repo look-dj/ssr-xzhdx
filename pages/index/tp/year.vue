@@ -222,7 +222,7 @@ export default {
       that.$bus.$on("toastConfirm", async function () {
         let result = await that.yearRead(id);
         // if (result.pic) {
-        //   let result0 = await that.api.deleteFile({ path: result.pic }, that);
+        //   let result0 = await that.api.deleteFile(result.pic);
         // }
         try {
           let result1 = await that.crud.delete({ id }, that);

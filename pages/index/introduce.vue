@@ -19,7 +19,7 @@ export default {
     async test() {
       let that = this;
       let res = await that.api.upload(that.file, that);
-      // console.log(res);
+      console.log(res);
     },
   },
   watch: {

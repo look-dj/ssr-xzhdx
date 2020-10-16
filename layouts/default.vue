@@ -44,6 +44,8 @@ export default {
     // 拿到window窗口地址
     let nid = that.$route.query.nid;
     nid = nid ? nid : 1;
+    that.$store.commit('setUpdateDeleteFile', Boolean(Number(localStorage.getItem('updateDeleteFile'))));
+    console.log(that.$store.state.updateDeleteFile)
     that.$store.commit("setMid", nid);
     // TODO 后期在处理路由nid加密的时候需要在这里经行解密
   },
@@ -111,8 +113,8 @@ export default {
 .v-main > .v-main__wrap {
   height: 100%;
 }
-html {
-  overflow-x: hidden;
+html{
+  overflow-y: visible !important;
 }
 ::-webkit-scrollbar {
   height: 8px;

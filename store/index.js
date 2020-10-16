@@ -13,7 +13,8 @@ const createStore = () => {
       user: {},
       expires: {
         maxAge: 60*60*31
-      }
+      },
+      updateDeleteFile: false,// 更新图片后是否自动删除源文件
     },
     mutations,
     getters,

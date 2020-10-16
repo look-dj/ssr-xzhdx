@@ -1,17 +1,25 @@
 <template>
-  <v-container ref="container" fluid :class="$vuetify.breakpoint.xs?'container':'px-12'">
+  <v-container
+    ref="container"
+    fluid
+    :class="$vuetify.breakpoint.xs ? 'container' : 'px-12'"
+  >
     <v-card class="px-6 pb-3" elevation="1">
-      <v-toolbar flat >
+      <v-toolbar flat>
         <v-card-title>栏目管理</v-card-title>
         <v-spacer></v-spacer>
         <v-btn
           class="mr-4"
           @click="dialog = true"
           :style="[theme.bg_p, theme.co]"
-          :small="$vuetify.breakpoint.xs?true:false"
-          >{{$vuetify.breakpoint.xs?'+添加':'+添加栏目'}}</v-btn
+          :small="$vuetify.breakpoint.xs ? true : false"
+          >{{ $vuetify.breakpoint.xs ? "+添加" : "+添加栏目" }}</v-btn
         >
-        <v-btn :style="[theme.bg_p, theme.co]" :small="$vuetify.breakpoint.xs?true:false">更新排序</v-btn>
+        <v-btn
+          :style="[theme.bg_p, theme.co]"
+          :small="$vuetify.breakpoint.xs ? true : false"
+          >更新排序</v-btn
+        >
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -147,7 +155,7 @@
               ></v-col>
               <upload
                 v-model="imgFile"
-                :type="$vuetify.breakpoint.xs?'card':'auto'"
+                :type="$vuetify.breakpoint.xs ? 'card' : 'auto'"
                 cols="12"
                 :src="columnModel.pic"
                 ref="upload"
@@ -247,7 +255,7 @@ export default {
       cid: "",
     },
     htmlList: [],
-    columns:[]
+    columns: [],
   }),
   async asyncData({ app, query }) {
     let api = app.api;
@@ -318,7 +326,7 @@ export default {
       that.nodeModel.deep = Number(_column.deep) + 1;
       that.nodeModel.icon = "";
       that.nodeModel.cid = _column.nid;
-      that.columnModel.pic = imgResult.data;
+      that.columnModel.pic = imgResult.path;
       delete that.columnModel.path;
       delete that.columnModel.cid;
       try {
@@ -353,10 +361,13 @@ export default {
     async updateColumn() {
       let that = this;
       if (!that.$u.checkObjectIsEmpty(that.imgFile)) {
-        let imgResult = await that.api.upload(that.imgFile, that);
+        let pic_params = that.$store.state.updateDeleteFile
+          ? that.columnModel.pic
+          : "";
+        let imgResult = await that.api.upload(that.imgFile, that, pic_params);
         if (imgResult.code != 200)
-          return that.$hint({ msg: "请选择上传的图片", type: "error" });
-        that.columnModel.pic = imgResult.data;
+          return that.$hint({ msg: "上传图片失败", type: "error" });
+        that.columnModel.pic = imgResult.path;
       }
       that.nodeModel.title = that.nodeModel.call = that.columnModel.name;
       let _column = JSON.parse(that.nodeModel.cid);
@@ -395,6 +406,9 @@ export default {
             that
           );
           if (result.code != 200) {
+            if (params.pic.length > 0 && that.$store.state.updateDeleteFile) {
+              that.api.deleteFile(params.pic);
+            }
             return that.$hint({ msg: "删除栏目失败", type: "error" });
           }
           that.$hint({ msg: "删除栏目成功" });
@@ -482,5 +496,9 @@ export default {
 tbody > tr {
   cursor: pointer;
 }
-.container{padding:0;padding-right:12px;padding-top:20px}
+.container {
+  padding: 0;
+  padding-right: 12px;
+  padding-top: 20px;
+}
 </style>

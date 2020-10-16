@@ -31,6 +31,11 @@
               <v-spacer></v-spacer>
               <v-switch v-model="darkState"></v-switch>
             </v-card-text>
+             <v-card-text class="d-flex align-center">
+              <v-subheader>深色模式</v-subheader>
+              <v-spacer></v-spacer>
+              <v-switch v-model="updateDeleteFile"></v-switch>
+            </v-card-text>
           </v-sheet>
         </v-card-text>
       </v-card>
@@ -73,6 +78,7 @@ export default {
     dialog: false,
     active_theme: "",
     darkState: false,
+    updateDeleteFile: false
   }),
   props: {
     type: String,
@@ -81,6 +87,7 @@ export default {
     let that = this;
     if (localStorage.getItem("theme"))
       that.active_theme = localStorage.getItem("theme");
+      that.updateDeleteFile = that.$store.state.updateDeleteFile;
   },
   watch: {
     darkState(val) {
@@ -97,6 +104,10 @@ export default {
       }
       this.$vuetify.theme.dark = val;
     },
+    updateDeleteFile(val){
+     this.$store.commit('setUpdateDeleteFile', val);
+     localStorage.setItem('updateDeleteFile', val?1:0);
+    }
   },
   methods: {
     close() {
@@ -110,6 +121,9 @@ export default {
       localStorage.setItem("theme", theme);
       that.$store.commit("changeTheme", theme);
     },
+    changeTemp(){
+      console.log('00')
+    }
   },
   computed: {
     themes() {
