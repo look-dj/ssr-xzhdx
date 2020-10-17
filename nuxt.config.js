@@ -101,7 +101,7 @@ export default {
       target: "http://127.0.0.1:9017", // 目标接口域名
       changeOrigin: true, // 表示是否跨域
       pathRewrite: {
-        "^/api": "/panel/" // 把 /api 替换成‘’
+        "^/api": "/ssr/"
       }
     }
   },
